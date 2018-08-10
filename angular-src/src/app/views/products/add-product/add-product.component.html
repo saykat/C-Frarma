@@ -1,0 +1,82 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-card class="example-card">
+        <mat-card-title><h4  class="card-title">Add Product</h4></mat-card-title>
+        <mat-card-content>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Medicine Name"
+                           required
+                           #medicineName="ngModel"
+                           #newProduct
+                           [(ngModel)]="addProducts.medicineName">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Medicine Group" (keyup)="getMedicineGroups()" aria-label="medicineGroup" [matAutocomplete]="auto" [(ngModel)]="addProducts.groupName">
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let medicineGroup of medicineGroupList " [value]="medicineGroup.name">
+                        {{ medicineGroup.name }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Power"
+                           #power="ngModel"
+                           [(ngModel)]="addProducts.power" >
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Price"
+                           #price="ngModel"
+                           [(ngModel)]="addProducts.price">
+                  </mat-form-field>
+                  <button  class="pull-right" mat-raised-button color="primary" (click)="saveNewProduct(newProduct.value)">Add Product</button>
+                </div>
+                <div class="col-md-8" style="border-left: 1px solid #c8ced3">
+                  <table datatable class="row-border hover">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Medicine Name</th>
+                      <th>state</th>
+                      <th> Power</th>
+                      <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let eachProduct of addProductList; let i=index">
+                      <td>{{i+1}}</td>
+                      <td>{{eachProduct.medicineName}}</td>
+                      <td>{{eachProduct.groupName}}</td>
+                      <td>{{eachProduct.states}}</td>
+                      <td>{{eachProduct.power}}</td>
+                      <td>{{eachProduct.price}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

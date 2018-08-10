@@ -1,0 +1,79 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-card class="example-card">
+        <mat-card-title><h4  class="card-title">Add New Company</h4></mat-card-title>
+        <mat-card-content>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width" >
+                    <input matInput placeholder="Company Name"
+                           required
+                           id="name"
+                           #name="ngModel"
+                           minlength="4"
+                           [(ngModel)]="company.name">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Representative"
+                            required
+                           #representative="ngModel"
+                           [(ngModel)]="company.representative">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Contact No"
+                           required
+                           #contact="ngModel"
+                           [(ngModel)]="company.contactNo">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Note"  [(ngModel)]="company.note"></textarea>
+                  </mat-form-field>
+                  <button  class="pull-right" mat-raised-button color="primary" (click)="saveNewCompany()">Add Medicine Group</button>
+                </div>
+                <div class="col-md-8" style="border-left: 1px solid #c8ced3">
+                  <table datatable class="row-border hover">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Company Name</th>
+                        <th>Representative</th>
+                        <th>Contact No</th>
+                        <th>Note</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let eachCompany of companyList; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{eachCompany.name}}</td>
+                        <td>{{eachCompany.representative}}</td>
+                        <td>{{eachCompany.contactNo}}</td>
+                        <td>{{eachCompany.note}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
