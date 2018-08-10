@@ -1,2 +1,3 @@
 # C-Frarma
-This is a pharmacy management system 
+This is a MEAN stack pharmacy management system 
+
