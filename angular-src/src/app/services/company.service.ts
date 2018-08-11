@@ -18,10 +18,10 @@ export class CompanyService {
       .map(res => res.json());
   }
 
-  viewCompany() {
+  viewCompany(data = '0') {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:8080/api/company/view', {headers: headers})
+    return this.http.get('http://localhost:8080/api/company/view?key='+data, {headers: headers})
       .map(res=> res.json());
   }
 

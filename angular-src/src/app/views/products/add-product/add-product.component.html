@@ -15,14 +15,25 @@
                            #newProduct
                            [(ngModel)]="addProducts.medicineName">
                   </mat-form-field>
+
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Medicine Group" (keyup)="getMedicineGroups()" aria-label="medicineGroup" [matAutocomplete]="auto" [(ngModel)]="addProducts.groupName">
-                    <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor="let medicineGroup of medicineGroupList " [value]="medicineGroup.name">
+                    <input matInput placeholder="Medicine Group"  (keyup)="getMedicineGroups()" aria-label="medicineGroup" [matAutocomplete]="auto" [(ngModel)]="addProducts.groupName">
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChangedMedicineGroup($event.option.value)">
+                      <mat-option *ngFor="let medicineGroup of medicineGroupList " [value]="medicineGroup.name" >
                         {{ medicineGroup.name }}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Company"  (keyup)="getCompany()" aria-label="company" [matAutocomplete]="auto" [(ngModel)]="addProducts.companyName">
+                    <mat-autocomplete (optionSelected)="onSelectionChangedCompany($event.option.value)">
+                      <mat-option *ngFor="let company of companyList " [value]="company.name" >
+                        {{ company.name }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Power"
                            #power="ngModel"

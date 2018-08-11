@@ -4,6 +4,9 @@ import {ProductService} from "../../../services/product.service";
 import {NotificationsService} from "angular2-notifications";
 import {MedicineGroupService} from "../../../services/medicine-group.service";
 import {MedicineGroupModel} from "../../../models/medicine-group.model";
+import {forEach} from "@angular/router/src/utils/collection";
+import {CompanyModel} from "../../../models/company.model";
+import {CompanyService} from "../../../services/company.service";
 
 @Component({
   templateUrl: 'add-product.component.html'
@@ -12,11 +15,14 @@ export class AddProductComponent implements OnInit {
   addProducts: AddProductsModel = new AddProductsModel();
   addProductList: AddProductsModel [] = [];
   medicineGroupList: MedicineGroupModel[] = [];
+  companyList: CompanyModel[] = [];
 
   constructor(
     private notificationService: NotificationsService,
     private productService: ProductService,
-    private medicineGroupService: MedicineGroupService){}
+    private medicineGroupService: MedicineGroupService,
+    private companyService: CompanyService
+  ){}
 
   ngOnInit() {
     this.getAddProduct();
@@ -37,6 +43,12 @@ export class AddProductComponent implements OnInit {
     });
   }
 
+  getCompany(){
+    this.companyService.viewCompany(this.addProducts.companyName).subscribe((res)=>{
+      this.companyList = res.data;
+    });
+  }
+
 
   saveNewProduct() {
     console.log(this.addProducts)
@@ -51,16 +63,29 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  filterMedicineGroup(){
-    alert('clicked')
+
+  onSelectionChangedMedicineGroup(groupName){
+
+    if(this.medicineGroupList.length > 0){
+      this.medicineGroupList.forEach(medicineGroup => {
+        if(medicineGroup.name == groupName)
+          this.addProducts.groupId = medicineGroup._id;
+      })
+    }
+
   }
 
 
-  //
-  // private _filterMedicineGroup(value: string): MedicineGroupModel[] {
-  //   const filterValue = value.toLowerCase();
-  //
-  //   return this.medicineGroupList.filter(medicineGrou => medicineGrou.name.toLowerCase().indexOf(filterValue) === 0);
-  // }
+  onSelectionChangedCompany(companyName){
+
+    if(this.companyList.length > 0){
+      this.companyList.forEach(company => {
+        if(company.name == companyName)
+          this.addProducts.companyId = company._id;
+      })
+    }
+
+  }
+
 
 }
