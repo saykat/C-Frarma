@@ -26,8 +26,8 @@
                   </mat-form-field>
 
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Company"  (keyup)="getCompany()" aria-label="company" [matAutocomplete]="auto" [(ngModel)]="addProducts.companyName">
-                    <mat-autocomplete (optionSelected)="onSelectionChangedCompany($event.option.value)">
+                    <input matInput placeholder="Company"  (keyup)="getCompany()" aria-label="company" [matAutocomplete]="comp" [(ngModel)]="addProducts.companyName">
+                    <mat-autocomplete  #comp="matAutocomplete" (optionSelected)="onSelectionChangedCompany($event.option.value)">
                       <mat-option *ngFor="let company of companyList " [value]="company.name" >
                         {{ company.name }}
                       </mat-option>

@@ -23,7 +23,9 @@ module.exports.save = (req, res, next)=>{
 
 
 module.exports.view = (req, res, next) => {
-    companyService.viewAll( (err, company)=>{
+    let key = req.param('key');
+
+    companyService.viewAll(key,  (err, company)=>{
         if(err){
             res.json({success: false, data: null});
         }else{
