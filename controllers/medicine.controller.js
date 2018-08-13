@@ -1,26 +1,28 @@
 
 const medicineService = require('../services/medicine.service')
-const  medicine = require('../models/tempMedicine');
+const  medicine = require('../models/medicine');
 
 
 module.exports.save = (req, res, next)=>{
-    let reqData = req.body;
-    reqData.forEach((data)=>{
-        let newMedicine = new medicine({
-            name: data[2],
-            genericName: data[3],
-            power: data[4],
-            type: data[5],
-            price: data[6],
-            applicableTo: data[7],
-            DAR: data[8],
-            brand: data[1],
-        })
 
-        medicineService.save(newMedicine, (err, medicine) => {
-        })
+    let newMedicine = new medicine();
+    newMedicine.name =  req.body.medicineName;
+    newMedicine.group =  req.body.groupId;
+    newMedicine.company =  req.body.companyId;
+    newMedicine.applicationFor =  "";
+    newMedicine.applicationTo =  "";
+    newMedicine.sellingPrice =  req.body.price;
+    newMedicine.costPrice =  req.body.costPrice;
+    newMedicine.status =  req.body.status;
+    newMedicine.status =  req.body.power;
+
+    medicineService.save(newMedicine, (err, medicine) => {
+        if(err){
+            res.json({success: false, msg: 'failed to save '});
+        }else{
+            res.json({success: true, msg: 'new record successfully saved'});
+        }
     })
-    res.json({success: true, msg: 'saved '});
 }
 
 module.exports.view = (req, res, next) => {

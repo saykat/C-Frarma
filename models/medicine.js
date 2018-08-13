@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 
-
 const  medecineSchema = mongoose.Schema({
-    title: {
+
+    name: {
         type: String,
         required: true
     },
@@ -29,8 +29,8 @@ const  medecineSchema = mongoose.Schema({
     },
     status: {
         type: Number
-    },
-    prescribeMedicines: [{ type: mongoose.Schema.Types.ObjectId, ref: 'prescribeMedicine' }]
+    }
+
 });
 
 const  medecine = mongoose.model('medicines', medecineSchema);

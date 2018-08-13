@@ -17,6 +17,7 @@ export class AddProductComponent implements OnInit {
   medicineGroupList: MedicineGroupModel[] = [];
   companyList: CompanyModel[] = [];
 
+
   constructor(
     private notificationService: NotificationsService,
     private productService: ProductService,

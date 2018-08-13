@@ -10,14 +10,14 @@ export class ProductService {
   saveProduct(addProducts){
     let headers = new  Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:8080/api/addproduct/save', addProducts, {headers: headers})
+    return this.http.post('http://localhost:8080/api/medicine/save', addProducts, {headers: headers})
       .map(res=>res.json());
   }
 
   viewAddProduct() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:8080/api/addproduct/view', {headers: headers})
+    return this.http.get('http://localhost:8080/api/medicine/view', {headers: headers})
       .map(res=>res.json());
   }
 }

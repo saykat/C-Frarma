@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import {NewSalesComponent} from "./new-sales/new-sales.component";
 import {SalesRoutingModule} from "./sales-routing.module";
 import {CustomMatrialModule} from "../../custom-matrial.module";
+import {FormsModule} from "@angular/forms";
 
 
 // Components Routing
@@ -14,7 +15,7 @@ import {CustomMatrialModule} from "../../custom-matrial.module";
     CommonModule,
     SalesRoutingModule,
     CustomMatrialModule,
-
+    FormsModule
   ],
   declarations: [
     NewSalesComponent

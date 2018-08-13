@@ -13,10 +13,21 @@
           </div>
           <div class="row">
             <div class="col-md-6">
+
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Search By Medicine Name or Group" >
+                <input matInput placeholder="Search By Medicine Name or Group"  (keyup)="getMedicine()" aria-label="medicineGroup" [matAutocomplete]="auto" [(ngModel)]="searchKey">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChangedMedicine($event.option.value)">
+                  <mat-option *ngFor="let medicine of medicineList " [value]="medicine.name" >
+                    {{ medicine.name }}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
+
             </div>
+
+
+
+
             <div class="col-md-3">
               <mat-form-field class="example-full-width">
                 <input matInput placeholder="Group" >

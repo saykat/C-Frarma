@@ -7,4 +7,5 @@ export class AddProductsModel{
   states: string;
   power:string;
   price:string;
+  costPrice:string;
 }

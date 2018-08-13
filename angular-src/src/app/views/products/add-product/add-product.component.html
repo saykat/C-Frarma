@@ -39,11 +39,19 @@
                            #power="ngModel"
                            [(ngModel)]="addProducts.power" >
                   </mat-form-field>
+
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Price"
+                    <input matInput placeholder="Cost Price"
+                           #price="ngModel"
+                           [(ngModel)]="addProducts.costPrice">
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sales Price"
                            #price="ngModel"
                            [(ngModel)]="addProducts.price">
                   </mat-form-field>
+
                   <button  class="pull-right" mat-raised-button color="primary" (click)="saveNewProduct(newProduct.value)">Add Product</button>
                 </div>
                 <div class="col-md-8" style="border-left: 1px solid #c8ced3">
