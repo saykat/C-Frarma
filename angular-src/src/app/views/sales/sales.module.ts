@@ -5,6 +5,7 @@ import {NewSalesComponent} from "./new-sales/new-sales.component";
 import {SalesRoutingModule} from "./sales-routing.module";
 import {CustomMatrialModule} from "../../custom-matrial.module";
 import {FormsModule} from "@angular/forms";
+import {MedicineService} from "../../services/medicine.service";
 
 
 // Components Routing
@@ -19,6 +20,9 @@ import {FormsModule} from "@angular/forms";
   ],
   declarations: [
     NewSalesComponent
+  ],
+  providers: [
+    MedicineService
   ]
 })
 export class SalesModule { }

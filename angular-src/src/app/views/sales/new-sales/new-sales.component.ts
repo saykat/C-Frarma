@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {MedicineModel} from "../../../models/medicine.model";
+import {MedicineService} from "../../../services/medicine.service";
 
 @Component({
   templateUrl: 'new-sales.component.html'
@@ -26,7 +27,7 @@ export class NewSalesComponent {
 
   ];
 
-  constructor() { }
+  constructor(private medicineService: MedicineService) {}
 
 
   ngOnInit() {
@@ -37,9 +38,9 @@ export class NewSalesComponent {
 
 
   getMedicine(){
-    // this.productService.viewAddProduct().subscribe((res)=> {
-    //   this.addProductList = res.data;
-    // })
+    this.medicineService.viewMedicines().subscribe((res)=> {
+      this.medicineList = res.data;
+    })
   }
 
   onSelectionChangedMedicine(value){}
