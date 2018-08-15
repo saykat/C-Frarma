@@ -26,9 +26,14 @@ module.exports.save = (req, res, next)=>{
 }
 
 module.exports.view = (req, res, next) => {
-    medicineService.viewAll( (err, medicines)=>{
+
+    let key = req.param('key') ||'';
+    let group =  req.param('group') ||'';
+    let company =  req.param('company') ||'';
+
+    medicineService.viewAll(key, group, company, (err, medicines)=>{
         if(err){
-            res.json({success: false, data: null});
+            res.json({success: false, data: []});
         }else{
             res.json({success: true, data: medicines});
         }

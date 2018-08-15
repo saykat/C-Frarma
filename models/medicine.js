@@ -13,7 +13,7 @@ const  medecineSchema = mongoose.Schema({
     },
     company: {
         type: String,
-        required: true
+        ref: 'company'
     },
     applicationFor: {
         type: String,

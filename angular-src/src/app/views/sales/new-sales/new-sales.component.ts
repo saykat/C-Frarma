@@ -9,6 +9,8 @@ export class NewSalesComponent {
 
   medicineList: MedicineModel[] = []
   searchKey: string;
+  groupKey: string;
+  companyKey: string;
 
 
 
@@ -38,7 +40,7 @@ export class NewSalesComponent {
 
 
   getMedicine(){
-    this.medicineService.viewMedicines().subscribe((res)=> {
+    this.medicineService.viewMedicines(this.searchKey, this.groupKey, this.companyKey).subscribe((res)=> {
       this.medicineList = res.data;
     })
   }

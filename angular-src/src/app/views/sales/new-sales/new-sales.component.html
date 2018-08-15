@@ -18,7 +18,14 @@
                 <input matInput placeholder="Search By Medicine Name or Group"  (keyup)="getMedicine()" aria-label="medicineGroup" [matAutocomplete]="auto" [(ngModel)]="searchKey">
                 <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChangedMedicine($event.option.value)">
                   <mat-option *ngFor="let medicine of medicineList " [value]="medicine.name" >
-                    {{ medicine.name }}
+                    <table width="100%">
+                      <tbody>
+                        <tr>
+                          <td  width="33%">{{medicine.name}}</td>
+                          <td  width="33%"> {{medicine.company.name}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>

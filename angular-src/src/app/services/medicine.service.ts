@@ -9,11 +9,11 @@ export class MedicineService{
 
   constructor(private http: Http) { }
 
-  viewMedicines(data = '0'){
+  viewMedicines(searchKey = '', groupKey = '', companyKey = ''){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.get('http://localhost:8080/api/medicine/view?key='+data, {headers: headers})
+    return this.http.get('http://localhost:8080/api/medicine/view?key='+searchKey+ '&group=' + groupKey + '&company=' + companyKey, {headers: headers})
       .map(res => res.json());
 
   }
