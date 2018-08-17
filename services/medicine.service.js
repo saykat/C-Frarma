@@ -19,7 +19,7 @@ module.exports.viewAll = (searchKey, group, company, callback) => {
         query = query.where('company').equals(company);
     }
 
-    query = query.populate('company').limit(10).sort('name');
+    query = query.populate('company').populate('group').limit(10).sort('name');
 
     query.exec(callback);
 }

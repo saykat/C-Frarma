@@ -15,14 +15,15 @@
             <div class="col-md-6">
 
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Search By Medicine Name or Group"  (keyup)="getMedicine()" aria-label="medicineGroup" [matAutocomplete]="auto" [(ngModel)]="searchKey">
-                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChangedMedicine($event.option.value)">
-                  <mat-option *ngFor="let medicine of medicineList " [value]="medicine.name" >
+                <input matInput placeholder="Search By Medicine Name or Group"  (keyup)="getMedicine()" aria-label="medicineGroup" [matAutocomplete]="medicine" [(ngModel)]="searchKey">
+                <mat-autocomplete #medicine="matAutocomplete" (optionSelected)="onSelectionChangedMedicine($event.option.value)">
+                  <mat-option *ngFor="let medicine of medicineList" [value]="medicine.name" >
                     <table width="100%">
                       <tbody>
                         <tr>
-                          <td  width="33%">{{medicine.name}}</td>
-                          <td  width="33%"> {{medicine.company.name}}</td>
+                          <td  width="44%">{{medicine.name}}</td>
+                          <td  width="23%"> {{medicine.company.name}}</td>
+                          <td  width="23%"> {{medicine.group.name}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -32,17 +33,24 @@
 
             </div>
 
-
-
-
             <div class="col-md-3">
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Group" >
+                <input matInput placeholder="Medicine Group"  (keyup)="getMedicineGroups()" aria-label="medicineGroup" [matAutocomplete]="group" [(ngModel)]="groupName">
+                <mat-autocomplete #group="matAutocomplete" (optionSelected)="onSelectionChangedMedicineGroup($event.option.value)">
+                  <mat-option *ngFor="let medicineGroup of medicineGroupList " [value]="medicineGroup.name" >
+                    {{ medicineGroup.name }}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
             </div>
             <div class="col-md-3">
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Company" >
+                <input matInput placeholder="Company"  (keyup)="getCompany()" aria-label="company" [matAutocomplete]="company" [(ngModel)]="companyName">
+                <mat-autocomplete  #company="matAutocomplete" (optionSelected)="onSelectionChangedCompany($event.option.value)">
+                  <mat-option *ngFor="let company of companyList " [value]="company.name" >
+                    {{ company.name }}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
             </div>
           </div>

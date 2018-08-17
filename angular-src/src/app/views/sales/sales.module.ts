@@ -6,6 +6,8 @@ import {SalesRoutingModule} from "./sales-routing.module";
 import {CustomMatrialModule} from "../../custom-matrial.module";
 import {FormsModule} from "@angular/forms";
 import {MedicineService} from "../../services/medicine.service";
+import {CompanyService} from "../../services/company.service";
+import {MedicineGroupService} from "../../services/medicine-group.service";
 
 
 // Components Routing
@@ -22,7 +24,9 @@ import {MedicineService} from "../../services/medicine.service";
     NewSalesComponent
   ],
   providers: [
-    MedicineService
+    MedicineService,
+    CompanyService,
+    MedicineGroupService
   ]
 })
 export class SalesModule { }

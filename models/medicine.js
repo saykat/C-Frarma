@@ -9,7 +9,7 @@ const  medecineSchema = mongoose.Schema({
     },
     group: {
         type: String,
-        required: true
+        ref: 'medicineGroup'
     },
     company: {
         type: String,
