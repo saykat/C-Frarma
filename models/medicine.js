@@ -13,7 +13,7 @@ const  medecineSchema = mongoose.Schema({
     },
     company: {
         type: String,
-        ref: 'company'
+        ref: 'medicineCompany'
     },
     applicationFor: {
         type: String,
@@ -22,10 +22,10 @@ const  medecineSchema = mongoose.Schema({
         type: String,
     },
     sellingPrice: {
-        type: String,
+        type: Number,
     },
     costPrice: {
-        type: String,
+        type: Number,
     },
     status: {
         type: Number

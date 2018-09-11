@@ -1,3 +1,4 @@
+
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-md-12">
@@ -47,10 +48,10 @@
                   </mat-form-field>
 
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Sales Price"
-                           #price="ngModel"
-                           [(ngModel)]="addProducts.price">
-                  </mat-form-field>
+                  <input matInput placeholder="Sales Price"
+                         #price="ngModel"
+                         [(ngModel)]="addProducts.price">
+                </mat-form-field>
 
                   <button  class="pull-right" mat-raised-button color="primary" (click)="saveNewProduct(newProduct.value)">Add Product</button>
                 </div>

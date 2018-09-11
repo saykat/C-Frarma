@@ -47,6 +47,7 @@ import {SimpleNotificationsModule} from "angular2-notifications";
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 import {LoadingModule} from "ngx-loading";
 import {DataTablesModule} from "angular-datatables";
+import {CartService} from "./services/cart.service";
 
 @NgModule({
   imports: [
@@ -83,7 +84,8 @@ import {DataTablesModule} from "angular-datatables";
     {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }
+  },
+    CartService
   ],
   bootstrap: [ AppComponent ]
 })

@@ -1,22 +1,27 @@
 const mongoose = require('mongoose');
 
-const  companySchema = mongoose.Schema({
-    name: {
+
+
+const  saleDetailSchema = mongoose.Schema({
+    salesId: {
         type: String,
         required: true
     },
-    email: {
+    product: {
         type: String,
         required: true
     },
-    contactNo: {
-        type: String
-    },
-    type: {
-        type: String,
+    amount: {
+        type: Number,
         required: true
     },
-    insertedTime:{
+    discount: {
+        type: Number
+    },
+    discountPer: {
+        type: Number
+    },
+    insertedBy:{
         type: String,
         required: true
     },
@@ -30,10 +35,14 @@ const  companySchema = mongoose.Schema({
     status: {
         type: Number,
         required: true
+    },
+    company: {
+        type: String,
+        required: true,
+        ref: 'company'
     }
-    // prescriptions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'prescription' }]
 });
 
-const  company = mongoose.model('company', companySchema);
+const  saleDetail = mongoose.model('saleDetail', saleDetailSchema);
 
-module.exports = company;
+module.exports = saleDetail;

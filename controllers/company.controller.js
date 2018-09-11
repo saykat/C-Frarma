@@ -1,6 +1,6 @@
 
 const companyService = require('../services/company.service')
-const  company = require('../models/company');
+const  company = require('../models/medicineCompany');
 
 
 module.exports.save = (req, res, next)=>{

@@ -1,5 +1,5 @@
 
-const  company = require('../models/company');
+const  company = require('../models/medicineCompany');
 
 
 module.exports.save = (newCompany, callback) => {

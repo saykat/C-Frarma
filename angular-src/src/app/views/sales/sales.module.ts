@@ -8,6 +8,7 @@ import {FormsModule} from "@angular/forms";
 import {MedicineService} from "../../services/medicine.service";
 import {CompanyService} from "../../services/company.service";
 import {MedicineGroupService} from "../../services/medicine-group.service";
+import {SalesService} from "../../services/sales.service";
 
 
 // Components Routing
@@ -26,7 +27,8 @@ import {MedicineGroupService} from "../../services/medicine-group.service";
   providers: [
     MedicineService,
     CompanyService,
-    MedicineGroupService
+    MedicineGroupService,
+    SalesService
   ]
 })
 export class SalesModule { }
