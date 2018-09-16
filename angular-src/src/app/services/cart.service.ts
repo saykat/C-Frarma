@@ -9,5 +9,6 @@ export class CartService{
   totalDiscount: number = 0;
   vat: number = 0;
   paidAmount: number;
+  previousInvoiceNo: number;
 
 }

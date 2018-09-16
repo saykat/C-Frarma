@@ -128,6 +128,7 @@ export class NewSalesComponent {
       this.salesService.newSale().subscribe((res) => {
         this.cartService = new CartService();
         this.notificationService.success('Success', res.msg)
+        this.cartService.previousInvoiceNo = res.data.invoiceId;
       })
     }else{
       this.notificationService.warn('Warn', 'Outstanding Balance Should Be Paid')

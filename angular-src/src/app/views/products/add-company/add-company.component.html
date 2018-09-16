@@ -10,31 +10,28 @@
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width" >
                     <input matInput placeholder="Company Name"
-                           required
+
                            id="name"
-                           #name="ngModel"
-                           minlength="4"
                            [(ngModel)]="company.name">
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Representative"
-                            required
-                           #representative="ngModel"
+
                            [(ngModel)]="company.representative">
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Contact No"
-                           required
-                           #contact="ngModel"
+
                            [(ngModel)]="company.contactNo">
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
                     <textarea matInput placeholder="Note"  [(ngModel)]="company.note"></textarea>
                   </mat-form-field>
-                  <button  class="pull-right" mat-raised-button color="primary" (click)="saveNewCompany()">Add Medicine Group</button>
+                  <button  class="pull-right" mat-raised-button color="primary" (click)="saveNewCompany()">Add Company</button>
                 </div>
                 <div class="col-md-8" style="border-left: 1px solid #c8ced3">
-                  <table datatable class="row-border hover">
+
+                  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" width="100%">
                     <thead>
                       <tr>
                         <th>#</th>

@@ -5,7 +5,7 @@ const  saleDetail = require('../models/saleDetail');
 
 module.exports.save = (req, res, next)=>{
     let today = new Date();
-    let genInvoice = today.getFullYear() + today.getMonth() + today.getDay() + today.getHours() + today.getMinutes() + today.getSeconds();
+    let genInvoice = today.getFullYear() +''+ today.getMonth() + '' +today.getDay() + '' +today.getHours() +''+ today.getMinutes() +'' + today.getSeconds();
     let newSale = new sale();
     newSale.invoiceNo = genInvoice;
     newSale.comment = req.body.comment;
@@ -43,7 +43,7 @@ module.exports.save = (req, res, next)=>{
 
             });
             sale.save();
-            res.json({success: true, msg: 'new record successfully saved'});
+            res.json({success: true, notification: 'success',  msg: 'new record successfully saved', data: {invoiceId: genInvoice}});
         }
     })
 }

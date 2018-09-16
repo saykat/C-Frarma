@@ -20,3 +20,43 @@ module.exports.viewAll = (searchKey, callback) => {
 }
 
 
+module.exports.viewGrid = (queryOption, callback) => {
+
+    var searchKeyPattern = new RegExp('.*'+queryOption.searchKey+'.*', "i");
+
+    let queryCount = company.count({
+        $or: [
+            {"name": searchKeyPattern}
+        ]
+    });
+    queryCount.exec((err, count)=>{
+        let query = company.find({
+            $or: [
+                {"name": searchKeyPattern}
+            ]
+        }).skip(queryOption.start).limit(queryOption.length).sort({ [queryOption.orderBy]: queryOption.orderDir});
+
+        query.exec((err, company)=>{
+            let data = {
+                company: company,
+                count: count
+            }
+            callback(err, data);
+        })
+    });
+
+}
+
+
+module.exports.viewCount = (queryOption, callback) => {
+    var searchKeyPattern = new RegExp('.*'+queryOption.searchKey+'.*', "i");
+
+    let query = company.count({
+        $or: [
+            {"name": searchKeyPattern}
+        ]
+    });
+    query.exec(callback);
+}
+
+

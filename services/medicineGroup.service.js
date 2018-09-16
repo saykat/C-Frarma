@@ -20,3 +20,29 @@ module.exports.viewAll = (searchKey, callback) => {
 }
 
 
+module.exports.viewGrid = (queryOption, callback) => {
+
+    var searchKeyPattern = new RegExp('.*'+queryOption.searchKey+'.*', "i");
+
+    let queryCount = medicineGroup.count({
+        $or: [
+            {"name": searchKeyPattern}
+        ]
+    });
+    queryCount.exec((err, count)=>{
+        let query = medicineGroup.find({
+            $or: [
+                {"name": searchKeyPattern}
+            ]
+        }).skip(queryOption.start).limit(queryOption.length).sort({ [queryOption.orderBy]: queryOption.orderDir});
+
+        query.exec((err, medicineGroup)=>{
+            let data = {
+                medicineGroup: medicineGroup,
+                count: count
+            }
+            callback(err, data);
+        })
+    });
+
+}

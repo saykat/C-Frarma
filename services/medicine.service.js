@@ -24,3 +24,31 @@ module.exports.viewAll = (searchKey, group, company, callback) => {
     query.exec(callback);
 }
 
+
+
+module.exports.viewGrid = (queryOption, callback) => {
+
+    var searchKeyPattern = new RegExp('.*'+queryOption.searchKey+'.*', "i");
+
+    let queryCount = medicine.count({
+        $or: [
+            {"name": searchKeyPattern}
+        ]
+    });
+    queryCount.exec((err, count)=>{
+        let query = medicine.find({
+            $or: [
+                {"name": searchKeyPattern}
+            ]
+        }).populate('company').populate('group').skip(queryOption.start).limit(queryOption.length).sort({ [queryOption.orderBy]: queryOption.orderDir});
+
+        query.exec((err, medicine)=>{
+            let data = {
+                medicine: medicine,
+                count: count
+            }
+            callback(err, data);
+        })
+    });
+
+}

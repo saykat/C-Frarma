@@ -56,12 +56,13 @@
                   <button  class="pull-right" mat-raised-button color="primary" (click)="saveNewProduct(newProduct.value)">Add Product</button>
                 </div>
                 <div class="col-md-8" style="border-left: 1px solid #c8ced3">
-                  <table datatable class="row-border hover">
+                  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" width="100%">
                     <thead>
                     <tr>
                       <th>#</th>
                       <th>Medicine Name</th>
-                      <th>state</th>
+                      <th>Group</th>
+                      <th>Company</th>
                       <th> Power</th>
                       <th>Price</th>
                     </tr>
@@ -69,11 +70,12 @@
                     <tbody>
                     <tr *ngFor="let eachProduct of addProductList; let i=index">
                       <td>{{i+1}}</td>
-                      <td>{{eachProduct.medicineName}}</td>
-                      <td>{{eachProduct.groupName}}</td>
-                      <td>{{eachProduct.states}}</td>
+                      <td>{{eachProduct.name}}</td>
+                      <td>{{eachProduct.group.name}}</td>
+                      <td>{{eachProduct.company.name}}</td>
                       <td>{{eachProduct.power}}</td>
-                      <td>{{eachProduct.price}}</td>
+                      <td>{{eachProduct.sellingPrice}}</td>
+
                     </tr>
                     </tbody>
                   </table>

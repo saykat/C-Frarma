@@ -39,6 +39,7 @@ router.get('/procedure/view', passport.authenticate('jwt', {session:false}), pro
 
 router.post('/medicine/save', medicineController.save);
 router.get('/medicine/view', medicineController.view);
+router.post('/medicine/view', medicineController.viewGrid);
 
 router.post('/prescription/save', passport.authenticate('jwt', {session:false}), prescriptionController.save);
 router.get('/prescription/view', passport.authenticate('jwt', {session:false}), prescriptionController.view);
@@ -49,11 +50,13 @@ router.get('/patient/search', passport.authenticate('jwt', {session:false}), pat
 
 router.post('/medicine-group/save', medicineGroupController.save);
 router.get('/medicine-group/view', medicineGroupController.view);
+router.post('/medicine-group/view', medicineGroupController.viewGrid);
 
 
 // Api Route For Pharmacy
 router.post('/company/save', companyController.save);
 router.get('/company/view', companyController.view);
+router.post('/company/view', companyController.viewGrid);
 
 router.post('/addproduct/save', addProductController.save);
 router.get('/addproduct/view', addProductController.view);

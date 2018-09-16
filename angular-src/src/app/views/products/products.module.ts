@@ -13,6 +13,7 @@ import {CdkTableModule} from "@angular/cdk/table";
 import {MatTableModule} from "@angular/material";
 import {MedicineGroupService} from "../../services/medicine-group.service";
 import {ProductService} from "../../services/product.service";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 // Components Routing
 
@@ -25,7 +26,8 @@ import {ProductService} from "../../services/product.service";
     FormsModule,
     CdkTableModule,
     MatTableModule,
-    DataTablesModule
+    DataTablesModule,
+    HttpClientModule
   ],
   declarations: [
     AddProductComponent,
