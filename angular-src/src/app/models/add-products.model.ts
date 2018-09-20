@@ -1,7 +1,8 @@
 import {CompanyModel} from "./company.model";
 import {MedicineGroupModel} from "./medicine-group.model";
 
-export class AddProductsModel{
+export class ProductModel{
+  _id: string = null;
   name: string;
   medicineName:string;
   groupName:string;
@@ -15,4 +16,5 @@ export class AddProductsModel{
   costPrice:string;
   company: CompanyModel;
   group: MedicineGroupModel;
+  status: number;
 }

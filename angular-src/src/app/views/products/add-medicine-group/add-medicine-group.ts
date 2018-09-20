@@ -6,6 +6,7 @@ import {MedicineGroupService} from "../../../services/medicine-group.service";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs/Subject";
 import {HttpClient} from "@angular/common/http";
+import {NgxSmartModalService} from "ngx-smart-modal";
 
 
 @Component({
@@ -19,11 +20,15 @@ export class AddMedicineGroup implements OnInit{
 
   MedicineGroup: MedicineGroupModel = new MedicineGroupModel();
   medicineGroupList: MedicineGroupModel[] = [];
+  viewGroup: MedicineGroupModel = new MedicineGroupModel();
+  create = true;
+
 
   constructor(
-    private notification: NotificationsService,
+    private notificationService: NotificationsService,
     private medicineGroupService: MedicineGroupService,
-    private http: HttpClient
+    private http: HttpClient,
+    public ngxSmartModalService: NgxSmartModalService
   ) { }
 
   ngOnInit() {
@@ -53,7 +58,7 @@ export class AddMedicineGroup implements OnInit{
           });
         });
       },
-      columns: [{ data: 'name' }, { data: 'description' }]
+      columns: [{},{ data: 'name' }, { data: 'description' },{}]
     };
   }
 
@@ -83,13 +88,60 @@ export class AddMedicineGroup implements OnInit{
 
   saveMedicineGroup(){
     console.log(this.MedicineGroup)
+    this.MedicineGroup.status = 1;
     this.medicineGroupService.saveMedicineGroup(this.MedicineGroup).subscribe((res)=>{
       if(res.success == true){
-        this.notification.success('Success', res.message);
+        this.notificationService.success('Success', res.message);
         this.getMedicineGroups();
         this.MedicineGroup = new MedicineGroupModel;
       }
     });
+  }
+
+
+  setView(index){
+    this.viewGroup = this.medicineGroupList[index];
+    this.ngxSmartModalService.getModal('viewModal').open();
+  }
+
+  setEdit(index){
+    this.MedicineGroup = this.medicineGroupList[index];
+    this.create = false;
+  }
+
+  setOperation(){
+    if(this.create == false){
+      this.create = true;
+      this.MedicineGroup = new MedicineGroupModel();
+    }else{
+      this.create = false;
+      setTimeout(()=>{
+        this.create = true;
+        this.notificationService.warn("Warning", "No record selected");
+      },500)
+    }
+  }
+
+  setDelete(index){
+    this.MedicineGroup = this.medicineGroupList[index];
+    this.ngxSmartModalService.getModal('deleteConfirmationModal').open();
+  }
+
+  deleteRecord(){
+    this.MedicineGroup.status = 0;
+
+    this.medicineGroupService.saveMedicineGroup(this.MedicineGroup).subscribe((res)=>{
+      if(res.success == true){
+        this.rerender();
+        this.MedicineGroup = new MedicineGroupModel();
+
+        this.ngxSmartModalService.getModal('deleteConfirmationModal').close();
+        this.notificationService.success('Success', 'A record successfully deleted');
+      }else{
+        this.notificationService.error('Error', 'Please try again');
+      }
+    });
+
   }
 }
 

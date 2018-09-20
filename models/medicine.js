@@ -27,6 +27,19 @@ const  medecineSchema = mongoose.Schema({
     costPrice: {
         type: Number,
     },
+    stock: {
+        type: Number,
+    },
+    power: {
+        type: Number,
+    },
+    insertedTime:{
+        type: Date,
+        required: true
+    },
+    updatedTime: {
+        type: Date
+    },
     status: {
         type: Number
     }

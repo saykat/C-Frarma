@@ -27,7 +27,20 @@
                   <mat-form-field class="example-full-width">
                     <textarea matInput placeholder="Note"  [(ngModel)]="company.note"></textarea>
                   </mat-form-field>
-                  <button  class="pull-right" mat-raised-button color="primary" (click)="saveNewCompany()">Add Company</button>
+
+                  <span >
+                    <mat-slide-toggle
+                      class="example-margin pull-left"
+                      [color]="color"
+                      (change)="setOperation()"
+                      [checked]="!create"
+                    >
+                      <span *ngIf="create == true">Add Company </span>
+                      <span *ngIf="create == false">Edit Company </span>
+                    </mat-slide-toggle>
+                  </span>
+
+                  <button  class="pull-right" mat-raised-button color="primary" (click)="saveNewCompany()">Save</button>
                 </div>
                 <div class="col-md-8" style="border-left: 1px solid #c8ced3">
 
@@ -39,6 +52,7 @@
                         <th>Representative</th>
                         <th>Contact No</th>
                         <th>Note</th>
+                        <td>Actions</td>
                       </tr>
                     </thead>
                     <tbody>
@@ -48,6 +62,17 @@
                         <td>{{eachCompany.representative}}</td>
                         <td>{{eachCompany.contactNo}}</td>
                         <td>{{eachCompany.note}}</td>
+                        <td>
+                          <button mat-icon-button color="primary" (click)="setView(i)">
+                            <mat-icon>visibility</mat-icon>
+                          </button>
+                          <button mat-icon-button color="primary" (click)="setEdit(i)">
+                            <mat-icon>border_color</mat-icon>
+                          </button>
+                          <button mat-icon-button color="accent"  (click)="setDelete(i)">
+                            <mat-icon>clear</mat-icon>
+                          </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -60,6 +85,30 @@
     </div>
   </div>
 </div>
+
+<ngx-smart-modal #viewModal identifier="viewModal">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Company Information</h2>
+      <p><strong>Company Name:</strong> {{viewCompany.name}}</p>
+      <p><strong>Representative:</strong> {{viewCompany.representative}}</p>
+      <p><strong>Contact No:</strong> {{viewCompany.contactNo}}</p>
+      <p><strong>Note:</strong>{{viewCompany.note}}</p>
+    </div>
+  </div>
+  <button mat-stroked-button color="accent" (click)="viewModal.close()" class="pull-right">Close</button>
+</ngx-smart-modal>
+
+<ngx-smart-modal #deleteConfirmationModal identifier="deleteConfirmationModal">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Alert!</h2>
+      <p>Are you sure to delete the record? </p>
+    </div>
+  </div>
+  <button mat-raised-button color="accent" (click)="deleteRecord()" class="pull-left">Delete</button>
+  <button mat-stroked-button color="accent" (click)="deleteConfirmationModal.close()" class="pull-right">Close</button>
+</ngx-smart-modal>
 
 
 

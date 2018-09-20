@@ -4,8 +4,10 @@ const  medicine = require('../models/medicine');
 
 
 module.exports.save = (req, res, next)=>{
+    let today = new Date();
 
     let newMedicine = new medicine();
+    newMedicine._id =  req.body._id;
     newMedicine.name =  req.body.medicineName;
     newMedicine.group =  req.body.groupId;
     newMedicine.company =  req.body.companyId;
@@ -14,7 +16,12 @@ module.exports.save = (req, res, next)=>{
     newMedicine.sellingPrice =  req.body.price;
     newMedicine.costPrice =  req.body.costPrice;
     newMedicine.status =  req.body.status;
-    newMedicine.status =  req.body.power;
+
+    newMedicine.power =  req.body.power;
+    newMedicine.insertedTime =  today;
+    newMedicine.updatedTime =  today;
+    newMedicine.stock =  0;
+
 
     medicineService.save(newMedicine, (err, medicine) => {
         if(err){

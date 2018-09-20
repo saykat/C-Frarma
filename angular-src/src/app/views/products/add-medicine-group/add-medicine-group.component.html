@@ -22,7 +22,20 @@
                       <!--</mat-option>-->
                     <!--</mat-select>-->
                   <!--</mat-form-field>-->
-                  <button  class="pull-right" mat-raised-button color="primary" (click)="saveMedicineGroup()">Add Medicine Group</button>
+
+                  <span >
+                    <mat-slide-toggle
+                      class="example-margin pull-left"
+                      [color]="color"
+                      (change)="setOperation()"
+                      [checked]="!create"
+                    >
+                      <span *ngIf="create == true">Add Company </span>
+                      <span *ngIf="create == false">Edit Company </span>
+                    </mat-slide-toggle>
+                  </span>
+
+                  <button  class="pull-right" mat-raised-button color="primary" (click)="saveMedicineGroup()">Save</button>
 
                 </div>
                 <div class="col-md-8" style="border-left: 1px solid #c8ced3">
@@ -32,6 +45,7 @@
                       <th>#</th>
                       <th>Group Name</th>
                       <th>Description</th>
+                      <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,6 +53,17 @@
                       <td>{{i+1}}</td>
                       <td>{{eachMedicineGroup.name}}</td>
                       <td>{{eachMedicineGroup.description}}</td>
+                      <td>
+                        <button mat-icon-button color="primary" (click)="setView(i)">
+                          <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="setEdit(i)">
+                          <mat-icon>border_color</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent"  (click)="setDelete(i)">
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                      </td>
                     </tr>
 
                     </tbody>
@@ -53,6 +78,29 @@
   </div><!--/.row-->
 </div>
 
+
+
+<ngx-smart-modal #viewModal identifier="viewModal">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Medicine Group Information</h2>
+      <p><strong>Group Name:</strong> {{viewGroup.name}}</p>
+      <p><strong>Description:</strong> {{viewGroup.description}}</p>
+    </div>
+  </div>
+  <button mat-stroked-button color="accent" (click)="viewModal.close()" class="pull-right">Close</button>
+</ngx-smart-modal>
+
+<ngx-smart-modal #deleteConfirmationModal identifier="deleteConfirmationModal">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Alert!</h2>
+      <p>Are you sure to delete the record? </p>
+    </div>
+  </div>
+  <button mat-raised-button color="accent" (click)="deleteRecord()" class="pull-left">Delete</button>
+  <button mat-stroked-button color="accent" (click)="deleteConfirmationModal.close()" class="pull-right">Close</button>
+</ngx-smart-modal>
 
 
 

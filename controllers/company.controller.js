@@ -4,12 +4,16 @@ const  company = require('../models/medicineCompany');
 
 
 module.exports.save = (req, res, next)=>{
-
+    let today = new Date();
     let newCompany = new company({
+        _id: req.body._id,
         name: req.body.name,
         representative: req.body.representative,
         contactNo: req.body.contactNo,
-        note: req.body.note
+        note: req.body.note,
+        insertedTime: today,
+        updatedTime: today,
+        status: req.body.status
     })
 
     companyService.save(newCompany, (err, company) => {

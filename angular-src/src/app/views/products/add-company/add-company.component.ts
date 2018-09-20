@@ -5,6 +5,7 @@ import {CompanyService} from "../../../services/company.service";
 import {HttpClient} from "@angular/common/http";
 import {Subject} from "rxjs";
 import {DataTableDirective} from "angular-datatables";
+import {NgxSmartModalService} from "ngx-smart-modal";
 
 
 
@@ -21,11 +22,14 @@ export class AddCompanyComponent implements OnInit {
 
   company: CompanyModel = new CompanyModel();
   companyList: CompanyModel[] = [];
+  viewCompany: CompanyModel = new CompanyModel();
+  create = true;
 
   constructor(
     private companyService: CompanyService,
     private notificationService: NotificationsService,
-    private http: HttpClient
+    private http: HttpClient,
+    public ngxSmartModalService: NgxSmartModalService
   ){
 
   }
@@ -55,7 +59,7 @@ export class AddCompanyComponent implements OnInit {
           });
         });
       },
-      columns: [{ data: 'name' }, { data: 'representative' }, { data: 'contactNo' }, { data: 'note' }]
+      columns: [{},{ data: 'name' }, { data: 'representative' }, { data: 'contactNo' }, { data: 'note' },{}]
     };
   }
   ngAfterViewInit(): void {
@@ -76,6 +80,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   saveNewCompany(){
+    this.company.status = 1;
     this.companyService.saveCompany(this.company).subscribe((res)=>{
       if(res.success == true){
         this.notificationService.success('Success', res.message);
@@ -84,5 +89,52 @@ export class AddCompanyComponent implements OnInit {
       }
     });
   }
+
+  setView(index){
+    this.viewCompany = this.companyList[index];
+    this.ngxSmartModalService.getModal('viewModal').open();
+  }
+
+  setEdit(index){
+    this.company = this.companyList[index];
+    this.create = false;
+  }
+
+  setOperation(){
+    if(this.create == false){
+      this.create = true;
+      this.company = new CompanyModel;
+    }else{
+      this.create = false;
+      setTimeout(()=>{
+        this.create = true;
+        this.notificationService.warn("Warning", "No record selected");
+      },500)
+    }
+  }
+
+  setDelete(index){
+    this.company = this.companyList[index];
+    this.ngxSmartModalService.getModal('deleteConfirmationModal').open();
+  }
+
+  deleteRecord(){
+    this.company.status = 0;
+
+    this.companyService.saveCompany(this.company).subscribe((res)=>{
+      if(res.success == true){
+        this.rerender();
+        this.company = new CompanyModel;
+
+        this.ngxSmartModalService.getModal('deleteConfirmationModal').close();
+        this.notificationService.success('Success', 'A record successfully deleted');
+      }else{
+        this.notificationService.error('Error', 'Please try again');
+      }
+    });
+
+  }
+
+
 }
 

@@ -15,6 +15,16 @@ const  medicineCompanySchema = mongoose.Schema({
     note: {
         type: String
     },
+    insertedTime:{
+        type: Date,
+        required: true
+    },
+    updatedTime: {
+        type: Date
+    },
+    status: {
+        type: Number
+    }
     // prescriptions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'prescription' }]
 });
 

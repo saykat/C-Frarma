@@ -20,10 +20,6 @@ const  companySchema = mongoose.Schema({
         type: String,
         required: true
     },
-    insertedTime: {
-        type: Date,
-        required: true
-    },
     updatedTime: {
         type: Date
     },

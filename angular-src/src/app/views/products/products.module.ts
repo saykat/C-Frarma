@@ -14,6 +14,8 @@ import {MatTableModule} from "@angular/material";
 import {MedicineGroupService} from "../../services/medicine-group.service";
 import {ProductService} from "../../services/product.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {NgxSmartModalModule} from "ngx-smart-modal";
+import {NgxBarcodeModule} from "ngx-barcode";
 
 // Components Routing
 
@@ -27,7 +29,9 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     CdkTableModule,
     MatTableModule,
     DataTablesModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSmartModalModule.forRoot(),
+    NgxBarcodeModule
   ],
   declarations: [
     AddProductComponent,

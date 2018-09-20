@@ -11,14 +11,13 @@
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Medicine Name"
-                           required
                            #medicineName="ngModel"
                            #newProduct
-                           [(ngModel)]="addProducts.medicineName">
+                           [(ngModel)]="product.medicineName">
                   </mat-form-field>
 
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Medicine Group"  (keyup)="getMedicineGroups()" aria-label="medicineGroup" [matAutocomplete]="auto" [(ngModel)]="addProducts.groupName">
+                    <input matInput placeholder="Medicine Group"  (keyup)="getMedicineGroups()" aria-label="medicineGroup" [matAutocomplete]="auto" [(ngModel)]="product.groupName">
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChangedMedicineGroup($event.option.value)">
                       <mat-option *ngFor="let medicineGroup of medicineGroupList " [value]="medicineGroup.name" >
                         {{ medicineGroup.name }}
@@ -27,7 +26,7 @@
                   </mat-form-field>
 
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Company"  (keyup)="getCompany()" aria-label="company" [matAutocomplete]="comp" [(ngModel)]="addProducts.companyName">
+                    <input matInput placeholder="Company"  (keyup)="getCompany()" aria-label="company" [matAutocomplete]="comp" [(ngModel)]="product.companyName">
                     <mat-autocomplete  #comp="matAutocomplete" (optionSelected)="onSelectionChangedCompany($event.option.value)">
                       <mat-option *ngFor="let company of companyList " [value]="company.name" >
                         {{ company.name }}
@@ -38,22 +37,34 @@
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Power"
                            #power="ngModel"
-                           [(ngModel)]="addProducts.power" >
+                           [(ngModel)]="product.power" >
                   </mat-form-field>
 
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Cost Price"
                            #price="ngModel"
-                           [(ngModel)]="addProducts.costPrice">
+                           [(ngModel)]="product.costPrice">
                   </mat-form-field>
 
                   <mat-form-field class="example-full-width">
                   <input matInput placeholder="Sales Price"
                          #price="ngModel"
-                         [(ngModel)]="addProducts.price">
+                         [(ngModel)]="product.price">
                 </mat-form-field>
 
-                  <button  class="pull-right" mat-raised-button color="primary" (click)="saveNewProduct(newProduct.value)">Add Product</button>
+                  <span >
+                    <mat-slide-toggle
+                      class="example-margin pull-left"
+                      [color]="color"
+                      (change)="setOperation()"
+                      [checked]="!create"
+                    >
+                      <span *ngIf="create == true">Add Company </span>
+                      <span *ngIf="create == false">Edit Company </span>
+                    </mat-slide-toggle>
+                  </span>
+
+                  <button  class="pull-right" mat-raised-button color="primary" (click)="saveNewProduct(newProduct.value)">Save</button>
                 </div>
                 <div class="col-md-8" style="border-left: 1px solid #c8ced3">
                   <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" width="100%">
@@ -65,17 +76,28 @@
                       <th>Company</th>
                       <th> Power</th>
                       <th>Price</th>
+                      <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let eachProduct of addProductList; let i=index">
+                    <tr *ngFor="let eachProduct of productList; let i=index">
                       <td>{{i+1}}</td>
                       <td>{{eachProduct.name}}</td>
                       <td>{{eachProduct.group.name}}</td>
                       <td>{{eachProduct.company.name}}</td>
                       <td>{{eachProduct.power}}</td>
                       <td>{{eachProduct.sellingPrice}}</td>
-
+                      <td>
+                        <button mat-icon-button color="primary" (click)="setView(i)">
+                          <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="setEdit(i)">
+                          <mat-icon>border_color</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent"  (click)="setDelete(i)">
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                      </td>
                     </tr>
                     </tbody>
                   </table>
@@ -89,6 +111,35 @@
   </div>
 </div>
 
+
+
+
+
+
+<ngx-smart-modal #viewModal identifier="viewModal" >
+  <div class="row" >
+    <div class="col-md-12">
+      <h2>Medicine Information</h2>
+      <p><strong>Medicine Name:</strong> {{viewProduct.name}}</p>
+      <p *ngIf="viewProduct.group!=null"><strong>Group Name:</strong> {{viewProduct.group.name}}</p>
+      <p  *ngIf="viewProduct.company!=null"><strong>Company Name:</strong> {{viewProduct.company.name}}</p>
+      <p><strong>Power:</strong> {{viewProduct.power}}</p>
+      <p><strong>Price:</strong> {{viewProduct.sellingPrice}}</p>
+    </div>
+  </div>
+  <button mat-stroked-button color="accent" (click)="viewModal.close()" class="pull-right">Close</button>
+</ngx-smart-modal>
+
+<ngx-smart-modal #deleteConfirmationModal identifier="deleteConfirmationModal">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Alert!</h2>
+      <p>Are you sure to delete the record? </p>
+    </div>
+  </div>
+  <button mat-raised-button color="accent" (click)="deleteRecord()" class="pull-left">Delete</button>
+  <button mat-stroked-button color="accent" (click)="deleteConfirmationModal.close()" class="pull-right">Close</button>
+</ngx-smart-modal>
 
 
 

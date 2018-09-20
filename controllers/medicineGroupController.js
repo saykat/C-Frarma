@@ -4,10 +4,15 @@ const  medicineGroup = require('../models/medicineGroup');
 
 
 module.exports.save = (req, res, next)=>{
+    let today = new Date();
 
     let newMedicineGroup = new medicineGroup({
+        _id: req.body._id,
         name: req.body.name,
         description: req.body.description,
+        insertedTime: today,
+        updatedTime: today,
+        status: req.body.status
     })
 
     medicineGroupService.save(newMedicineGroup, (err, medicineGroup) => {
@@ -22,7 +27,7 @@ module.exports.save = (req, res, next)=>{
 
 module.exports.view = (req, res, next) => {
 
-    let key = req.param('key');
+    let key = '';
     // if(key!==null && key !== '' && key!=undefined || key=='0')
     //     key='';
 
