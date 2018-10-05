@@ -62,12 +62,12 @@ export const navItems = [
     children: [
       {
         name: 'Sales Report',
-        url: '/purchase/new-purchase',
+        url: '/reports/sales-report',
         icon: 'icon-arrow-right-circle'
       },
       {
         name: 'Parchase Report',
-        url: '/purchase/new-purchase',
+        url: '/reports/purchase-report',
         icon: 'icon-arrow-right-circle'
       }
     ]

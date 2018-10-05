@@ -13,7 +13,7 @@ module.exports.save = (req, res, next)=>{
     newMedicine.company =  req.body.companyId;
     newMedicine.applicationFor =  "";
     newMedicine.applicationTo =  "";
-    newMedicine.sellingPrice =  req.body.price;
+    newMedicine.sellingPrice =  req.body.sellingPrice;
     newMedicine.costPrice =  req.body.costPrice;
     newMedicine.status =  req.body.status;
 

@@ -11,7 +11,6 @@ export class ProductModel{
   companyId: string;
   states: string;
   power:string;
-  price:string;
   sellingPrice:string;
   costPrice:string;
   company: CompanyModel;

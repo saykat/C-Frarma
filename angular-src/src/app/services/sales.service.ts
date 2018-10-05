@@ -15,4 +15,11 @@ export class SalesService{
       .map(res=>res.json());
   }
 
+  returnSale(data){
+    let headers = new  Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:8080/api/sale/modify', data, {headers: headers})
+      .map(res=>res.json());
+  }
+
 }

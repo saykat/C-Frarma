@@ -26,8 +26,6 @@ import {NgxBarcodeModule} from "ngx-barcode";
     ProductsRoutingModule,
     CustomMatrialModule,
     FormsModule,
-    CdkTableModule,
-    MatTableModule,
     DataTablesModule,
     HttpClientModule,
     NgxSmartModalModule.forRoot(),

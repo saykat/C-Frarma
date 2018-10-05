@@ -79,3 +79,44 @@ module.exports.viewGrid = (queryOption, callback) => {
     });
 
 }
+
+
+module.exports.viewGrid = (queryOption, callback) => {
+
+    var searchKeyPattern = new RegExp('.*'+queryOption.searchKey+'.*', "i");
+
+    let queryCount = medicine.count({
+        $or: [
+            {"name": searchKeyPattern}
+        ],
+        "status": 1
+    });
+    queryCount.exec((err, count)=>{
+        let query = medicine.find({
+            $or: [
+                {"name": searchKeyPattern}
+            ],
+            "status": 1
+        }).populate('company').populate('group').skip(queryOption.start).limit(queryOption.length).sort({ [queryOption.orderBy]: queryOption.orderDir});
+
+        query.exec((err, medicine)=>{
+            let data = {
+                medicine: medicine,
+                count: count
+            }
+            callback(err, data);
+        })
+    });
+
+}
+
+
+module.exports.updateStock = (medicineId, soldQty) => {
+    medicine.findOne({ _id: medicineId }, (err, model) => {
+            if(!err){
+                model.stock = (model.stock - soldQty);
+                model.save()
+            }
+    });
+}
+

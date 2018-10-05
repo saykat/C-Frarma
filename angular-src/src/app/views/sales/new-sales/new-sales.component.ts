@@ -125,8 +125,10 @@ export class NewSalesComponent {
     let outstandingAmount = (this.cartService.total - this.cartService.totalDiscount) - this.cartService.paidAmount;
 
     if(outstandingAmount <= 0){
+      this.cartService.status = 1;
       this.salesService.newSale().subscribe((res) => {
         this.cartService = new CartService();
+        this.cartService.salesItem = [];
         this.notificationService.success('Success', res.msg)
         this.cartService.previousInvoiceNo = res.data.invoiceId;
       })

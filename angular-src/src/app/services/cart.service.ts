@@ -4,11 +4,13 @@ import {SalesItemModel} from "../models/SalesItem.model";
 
 @Injectable()
 export class CartService{
+  _id: string = null;
   salesItem: SalesItemModel[] = [];
   total: number = 0;
   totalDiscount: number = 0;
   vat: number = 0;
   paidAmount: number;
   previousInvoiceNo: number;
+  status: number;
 
 }

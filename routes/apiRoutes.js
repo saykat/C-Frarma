@@ -62,7 +62,9 @@ router.post('/addproduct/save', addProductController.save);
 router.get('/addproduct/view', addProductController.view);
 
 router.post('/sale/save', saleController.save);
+router.post('/sale/modify', saleController.modify);
 router.get('/sale/view', saleController.view);
+router.post('/sale/view', saleController.viewGrid);
 
 
 

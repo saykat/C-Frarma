@@ -1,4 +1,5 @@
 const saleService = require('../services/sale.service')
+const medicineService = require('../services/medicine.service')
 const  sale = require('../models/sale');
 const  saleDetail = require('../models/saleDetail');
 
@@ -31,6 +32,7 @@ module.exports.save = (req, res, next)=>{
                 newSaleDetail.product = item._id;
                 newSaleDetail.amount = item.sellingPrice;
                 newSaleDetail.discount = item.discount;
+                newSaleDetail.qty = item.qty;
                 newSaleDetail.discountPer = 0;
                 newSaleDetail.insertedBy = 1;
                 newSaleDetail.insertedTime = today;
@@ -39,6 +41,7 @@ module.exports.save = (req, res, next)=>{
                 newSaleDetail.company = 1;
 
                 newSaleDetail.save()
+                medicineService.updateStock(newSaleDetail.product, newSaleDetail.qty);
                 sale.saleDetails.push(newSaleDetail._id);
 
             });
@@ -48,6 +51,15 @@ module.exports.save = (req, res, next)=>{
     })
 }
 
+module.exports.modify = (req, res, next) => {
+
+    saleService.returnSale(req.body._id);
+    req.body.saleDetails.forEach((item)=>{
+        medicineService.updateStock(item.product._id, (item.qty*(-1)));
+    });
+    res.json({success: true, notification: 'success',  msg: 'Sales Returned', data: null});
+
+}
 module.exports.view = (req, res, next) => {
 
     let key = req.param('key') ||'';
@@ -60,5 +72,45 @@ module.exports.view = (req, res, next) => {
         }else{
             res.json({success: true, data: medicines});
         }
+    })
+}
+
+
+module.exports.viewGrid = (req, res, next) => {
+
+    let start = (req.body.start);
+    let searchKey = '';
+    if(req.body.search.value != undefined ){
+        searchKey = req.body.search.value
+    }
+    let sortableColumnNo = req.body.order[0].column-1;
+    if(sortableColumnNo < 0){
+        sortableColumnNo=0;
+    }
+    let orderBy = req.body.columns[sortableColumnNo].data;
+    let orderDir = 1;
+    let draw = req.body.draw;
+    if(req.body.order[0].dir == 'desc'){
+        orderDir=-1;
+    }
+    let length = req.body.length;
+
+    let queryOption = {
+        start: start,
+        searchKey: searchKey,
+        orderBy: orderBy,
+        orderDir: orderDir,
+        draw: draw,
+        length: length
+    }
+
+    saleService.viewGrid(queryOption,  (err, data)=>{
+
+        if(err){
+            res.json({success: false, data: null});
+        }else{
+            res.json({success: true, data: data.sales, recordsTotal: data.count, recordsFiltered: data.count});
+        }
+
     })
 }

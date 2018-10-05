@@ -9,7 +9,8 @@ const  saleDetailSchema = mongoose.Schema({
     },
     product: {
         type: String,
-        required: true
+        required: true,
+        ref: 'medicines'
     },
     amount: {
         type: Number,
@@ -19,6 +20,9 @@ const  saleDetailSchema = mongoose.Schema({
         type: Number
     },
     discountPer: {
+        type: Number
+    },
+    qty: {
         type: Number
     },
     insertedBy:{
