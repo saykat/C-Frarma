@@ -1,134 +1,160 @@
+<style type="text/css">
+  .pos-table-input{
+    border: none;
+    background: #ceecdc52;
+    border-radius: 2px;
+  }
+  .mat-success {
+    background-color: #4dbd74;
+    font-weight: bold;
+    font-family: monospace;
+    color: #fff;
+  }
+</style>
+
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-md-12">
       <mat-card class="example-card">
-        <mat-card-title><h4  class="card-title">New Sale</h4></mat-card-title>
+        <mat-card-title><h4  class="card-title">New Purchase</h4></mat-card-title>
         <mat-card-content>
           <div class="row">
             <div class="offset-md-9 col-md-3">
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Invoice No" value="201812121002" disabled>
+                <input matInput placeholder="Last Invoice No" value="{{cartService.previousInvoiceNo}}" disabled>
               </mat-form-field>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
+
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Search By Medicine Name or Group" >
+                <input matInput placeholder="Search By Medicine Name or Group"  (keyup)="getMedicine()" aria-label="medicineGroup" [matAutocomplete]="medicine" [(ngModel)]="searchKey">
+                <mat-autocomplete #medicine="matAutocomplete" (optionSelected)="onSelectionChangedMedicine($event.option.value)">
+                  <mat-option *ngFor="let medicine of medicineList" [value]="medicine.name" >
+                    <table width="100%">
+                      <tbody>
+                      <tr>
+                        <td  width="44%">{{medicine.name}}</td>
+                        <td  width="23%"> {{medicine.company.name}}</td>
+                        <td  width="23%"> {{medicine.group.name}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+            </div>
+
+            <div class="col-md-3">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Medicine Group"  (keyup)="getMedicineGroups()" aria-label="medicineGroup" [matAutocomplete]="group" [(ngModel)]="groupName">
+                <mat-autocomplete #group="matAutocomplete" (optionSelected)="onSelectionChangedMedicineGroup($event.option.value)">
+                  <mat-option *ngFor="let medicineGroup of medicineGroupList " [value]="medicineGroup.name" >
+                    {{ medicineGroup.name }}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
             </div>
             <div class="col-md-3">
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Group" >
-              </mat-form-field>
-            </div>
-            <div class="col-md-3">
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Company" >
+                <input matInput placeholder="Company"  (keyup)="getCompany()" aria-label="company" [matAutocomplete]="company" [(ngModel)]="companyName">
+                <mat-autocomplete  #company="matAutocomplete" (optionSelected)="onSelectionChangedCompany($event.option.value)">
+                  <mat-option *ngFor="let company of companyList " [value]="company.name" >
+                    {{ company.name }}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
             </div>
           </div>
           <div class="row"></div>
-          <hr>
+          <!--<hr>-->
           <div class="row">
             <div class="col-md-9">
-              <mat-table #table [dataSource]="dataSource">
+              <table class="table table-sm">
+                <thead class="thead-light">
+                <tr>
+                  <th>#</th>
+                  <th>Medicine Name</th>
+                  <th>Group</th>
+                  <th>Company</th>
+                  <th>Qty</th>
+                  <th>price</th>
+                  <th>Sub</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of cartService.salesItem; let i = index ">
+                  <td>{{i+1}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.group.name}}</td>
+                  <td>{{item.company.name}}</td>
+                  <td><input class="pos-table-input" style="max-width: 40px" value="{{item.qty}}" #itemQty (keyup)="updateQty(item._id, itemQty.value)" ></td>
+                  <td><input class="pos-table-input" style="max-width: 50px" value="{{item.costPrice}}"  #itemPrice (keyup)="updatePrice(item._id, itemPrice.value)" (focusout)="updatePriceOnFocusout(item._id, itemPrice.value)" ></td>
+                  <td>{{item.sellingPrice * item.qty}}</td>
+                  <td>
+                    <button mat-icon-button color="accent" style="margin-top: -5px;" (click)="removeItem(item._id)">
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                  </td>
+                </tr>
 
-                <!-- Position Column -->
-                <ng-container matColumnDef="No">
-                  <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-                </ng-container>
-
-                <!-- Name Column -->
-                <ng-container matColumnDef="Name">
-                  <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-                </ng-container>
-
-                <!-- Weight Column -->
-                <ng-container matColumnDef="Group">
-                  <mat-header-cell *matHeaderCellDef> Group </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.group}} </mat-cell>
-                </ng-container>
-
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="Company">
-                  <mat-header-cell *matHeaderCellDef> Company </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.company}} </mat-cell>
-                </ng-container>
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="Power">
-                  <mat-header-cell *matHeaderCellDef> Power </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.power}} </mat-cell>
-                </ng-container>
-
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="Qty">
-                  <mat-header-cell *matHeaderCellDef> Qty </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.qty}} </mat-cell>
-                </ng-container>
-
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="Price">
-                  <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.sellingPrice}}</mat-cell>
-                </ng-container>
-
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="SubTotal">
-                  <mat-header-cell *matHeaderCellDef> SubTotal </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.subtotal}} </mat-cell>
-                </ng-container>
-
-                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-              </mat-table>
+                </tbody>
+              </table>
             </div>
-            <div class="col-md-3 col-payment-info" style="max-height: 330px">
-              <div class="row">
-                <h5 class="col-md-6">Total: </h5>
+            <div class="col-md-3 col-payment-info" style="height: 125px">
+              <div class="row" style="margin: 0px 0px 15px 0px;">
+                <h4 class="col-md-6">Total: </h4>
                 <div class="col-md-6">
-                  <h5  style="text-align: right">102 Tk</h5>
+                  <h4  style="text-align: right">{{cartService.total}} Tk</h4>
                 </div>
               </div>
 
-              <div class="row">
-                <h5 class="col-md-6">Discount: </h5>
-                <div class="col-md-6">
-                  <h6 style="text-align: right">2 Tk</h6>
-                </div>
-              </div>
+              <!--<div class="row">-->
+                <!--<h5 class="col-md-6">Discount: </h5>-->
+                <!--<div class="col-md-6">-->
+                  <!--<h6 style="text-align: right">{{cartService.totalDiscount}}  Tk</h6>-->
+                <!--</div>-->
+              <!--</div>-->
 
-              <div class="row">
-                <h5 class="col-md-6">Vat: </h5>
-                <div class="col-md-6">
-                  <h6 style="text-align: right">0 %</h6>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <h5 class="col-md-6">Payable: </h5>
-                <div class="col-md-6">
-                  <h5 style="text-align: right">100 Tk</h5>
-                </div>
-              </div>
+              <!--<div class="row">-->
+                <!--<h5 class="col-md-6">Vat: </h5>-->
+                <!--<div class="col-md-6">-->
+                  <!--<h6 style="text-align: right">{{cartService.vat}} </h6>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<hr>-->
+              <!--<div class="row">-->
+                <!--<h5 class="col-md-6">Payable: </h5>-->
+                <!--<div class="col-md-6">-->
+                  <!--<h5 style="text-align: right">{{cartService.total - cartService.totalDiscount}}  Tk</h5>-->
+                <!--</div>-->
+              <!--</div>-->
 
-              <div class="row">
-                <h5 class="col-md-6">Paid Amount: </h5>
-                <div class="col-md-6">
-                  <mat-form-field class="example-full-width">
-                    <input matInput >
-                  </mat-form-field>
-                </div>
-              </div>
+              <!--<div class="row">-->
+                <!--<h5 class="col-md-6">Paid Amount: </h5>-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field class="example-full-width">-->
+                    <!--<input matInput [(ngModel)]="cartService.paidAmount">-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
+              <!--</div>-->
 
-              <hr>
 
-              <div class="row">
-                <h5 class="col-md-6">Outstanding: </h5>
-                <div class="col-md-6">
-                  <h5 style="text-align: right">100 Tk</h5>
+              <!--<div class="row">-->
+                <!--<h5 class="col-md-6">Outstanding: </h5>-->
+                <!--<div class="col-md-6">-->
+                  <!--<h5 style="text-align: right"><span  *ngIf="cartService.paidAmount != null">{{(cartService.total - cartService.totalDiscount)- cartService.paidAmount}} </span> <span  *ngIf="cartService.paidAmount == null">{{cartService.total - cartService.totalDiscount}}</span> Tk</h5>-->
+                <!--</div>-->
+              <!--</div>-->
+
+              <!--<hr>-->
+
+              <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-12" style="text-align: center">
+                  <button mat-raised-button  [color]="'success'" style="min-width: 185px" (click)="newSale()" >Purchase</button>
                 </div>
               </div>
 
@@ -136,10 +162,6 @@
           </div>
 
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
       </mat-card>
     </div>
   </div><!--/.row-->
