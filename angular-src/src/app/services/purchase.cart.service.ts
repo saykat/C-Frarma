@@ -3,7 +3,7 @@ import {MedicineModel} from "../models/medicine.model";
 import {SalesItemModel} from "../models/SalesItem.model";
 
 @Injectable()
-export class CartService{
+export class PurchaseCartService{
 
   _id: string = null;
   salesItem: SalesItemModel[] = [];

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { getStyle, hexToRgba } from '@coreui/coreui/js/src/utilities/';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips/js/';
 import {NotificationsService} from "angular2-notifications";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   templateUrl: 'dashboard.component.html'
@@ -10,11 +11,12 @@ import {NotificationsService} from "angular2-notifications";
 export class DashboardComponent implements OnInit {
 
 
-  constructor(private notificationService: NotificationsService){}
+  constructor(private notificationService: NotificationsService, private artService: CartService){}
   ngOnInit(): void {
     setTimeout(()=>{
       this.notificationService.success('Success', 'Succesfully Loged In')
     },1000)
+    console.log(this.artService)
   }
 
 }

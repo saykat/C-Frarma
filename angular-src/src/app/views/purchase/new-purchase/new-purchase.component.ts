@@ -5,10 +5,9 @@ import {MedicineGroupService} from "../../../services/medicine-group.service";
 import {CompanyService} from "../../../services/company.service";
 import {MedicineGroupModel} from "../../../models/medicine-group.model";
 import {CompanyModel} from "../../../models/company.model";
-import {CartService} from "../../../services/cart.service";
-import {SalesItemModel} from "../../../models/SalesItem.model";
-import {SalesService} from "../../../services/sales.service";
 import {NotificationsService} from 'angular2-notifications';
+import {PurchaseCartService} from "../../../services/purchase.cart.service";
+import {PurchaseService} from "../../../services/purchase.service";
 
 @Component({
   templateUrl: 'new-purchase.component.html'
@@ -29,8 +28,8 @@ export class NewPurchaseComponent {
   constructor(private medicineService: MedicineService,
               private medicineGroupService: MedicineGroupService,
               private companyService: CompanyService,
-              private cartService: CartService,
-              private salesService: SalesService,
+              private cartService: PurchaseCartService,
+              private purchaseService: PurchaseService,
               private notificationService: NotificationsService
   ) {}
 
@@ -122,20 +121,12 @@ export class NewPurchaseComponent {
   }
 
   newSale(){
-    let outstandingAmount = (this.cartService.total - this.cartService.totalDiscount) - this.cartService.paidAmount;
-
-    if(outstandingAmount <= 0){
-      this.cartService.status = 1;
-      this.salesService.newSale().subscribe((res) => {
-        this.cartService = new CartService();
-        this.cartService.salesItem = [];
-        this.notificationService.success('Success', res.msg)
-        this.cartService.previousInvoiceNo = res.data.invoiceId;
-      })
-    }else{
-      this.notificationService.warn('Warn', 'Outstanding Balance Should Be Paid')
-    }
-
+    this.cartService.status = 1;
+    this.purchaseService.newPurchase().subscribe((res) => {
+      this.cartService.emptyCart();
+      this.notificationService.success('Success', res.msg)
+      this.cartService.previousInvoiceNo = res.data.invoiceId;
+    })
   }
 
   updateQty( currentItemId, newQty){

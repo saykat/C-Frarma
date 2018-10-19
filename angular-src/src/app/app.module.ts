@@ -48,6 +48,7 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-b
 import {LoadingModule} from "ngx-loading";
 import {DataTablesModule} from "angular-datatables";
 import {CartService} from "./services/cart.service";
+import {PurchaseCartService} from "./services/purchase.cart.service";
 
 @NgModule({
   imports: [
@@ -85,7 +86,8 @@ import {CartService} from "./services/cart.service";
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   },
-    CartService
+    CartService,
+    PurchaseCartService
   ],
   bootstrap: [ AppComponent ]
 })

@@ -9,6 +9,7 @@ import {MedicineService} from "../../services/medicine.service";
 import {CompanyService} from "../../services/company.service";
 import {SalesService} from "../../services/sales.service";
 import {MedicineGroupService} from "../../services/medicine-group.service";
+import {PurchaseService} from "../../services/purchase.service";
 
 
 // Components Routing
@@ -29,7 +30,8 @@ import {MedicineGroupService} from "../../services/medicine-group.service";
     MedicineService,
     CompanyService,
     MedicineGroupService,
-    SalesService
+    SalesService,
+    PurchaseService
   ]
 })
 export class PurchaseModule { }

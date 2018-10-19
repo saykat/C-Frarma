@@ -13,6 +13,7 @@ var medicineGroupController = require('../controllers/medicineGroupController');
 var companyController = require('../controllers/company.controller');
 var addProductController = require('../controllers/addProduct.controller');
 var saleController = require('../controllers/sale.controller');
+var purchaseController = require('../controllers/purchase.controller');
 
 
 const passport = require('passport');
@@ -65,6 +66,11 @@ router.post('/sale/save', saleController.save);
 router.post('/sale/modify', saleController.modify);
 router.get('/sale/view', saleController.view);
 router.post('/sale/view', saleController.viewGrid);
+
+router.post('/purchase/save', purchaseController.save);
+router.post('/purchase/modify', purchaseController.modify);
+router.get('/purchase/view', purchaseController.view);
+router.post('/purchase/view', purchaseController.viewGrid);
 
 
 

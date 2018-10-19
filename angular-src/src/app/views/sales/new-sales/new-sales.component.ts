@@ -29,7 +29,7 @@ export class NewSalesComponent {
   constructor(private medicineService: MedicineService,
               private medicineGroupService: MedicineGroupService,
               private companyService: CompanyService,
-              private cartService: CartService,
+              public cartService: CartService,
               private salesService: SalesService,
               private notificationService: NotificationsService
   ) {}
@@ -127,8 +127,7 @@ export class NewSalesComponent {
     if(outstandingAmount <= 0){
       this.cartService.status = 1;
       this.salesService.newSale().subscribe((res) => {
-        this.cartService = new CartService();
-        this.cartService.salesItem = [];
+        this.cartService.emptyCart();
         this.notificationService.success('Success', res.msg)
         this.cartService.previousInvoiceNo = res.data.invoiceId;
       })
