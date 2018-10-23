@@ -1,5 +1,14 @@
 <div class="animated fadeIn">
   <div class="row">
+      <div class="col-md-12">
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                ></canvas>
 
+      </div>
   </div><!--/.row-->
 </div>

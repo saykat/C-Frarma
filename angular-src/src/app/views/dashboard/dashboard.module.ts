@@ -15,7 +15,6 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     ChartsModule,
     BsDropdownModule,
     ButtonsModule.forRoot(),
-
   ],
   declarations: [ DashboardComponent ],
   providers: [

@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import {CustomMatrialModule} from "../../custom-matrial.module";
 import {InventoryRoutingModule} from "./inventory-routing.module";
 import {InventoryComponent} from "./inventory.component";
+import {DataTablesModule} from "angular-datatables";
+import {ProductService} from "../../services/product.service";
 
 
 // Components Routing
@@ -13,11 +15,15 @@ import {InventoryComponent} from "./inventory.component";
   imports: [
     CommonModule,
     CustomMatrialModule,
-    InventoryRoutingModule
+    InventoryRoutingModule,
+    DataTablesModule
 
   ],
   declarations: [
-    InventoryComponent
+    InventoryComponent,
+  ],
+  providers:[
+    ProductService
   ]
 })
 export class InventoryModule { }

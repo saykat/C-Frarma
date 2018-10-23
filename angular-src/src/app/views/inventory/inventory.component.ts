@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ProductModel} from "../../models/add-products.model";
+import {ProductService} from "../../services/product.service";
 
 @Component({
   templateUrl: 'inventory.component.html'
 })
-export class InventoryComponent {
+export class InventoryComponent  implements OnInit{
 
+  productList: ProductModel [] = [];
 
   displayedColumns = ['No', 'Name', 'Group', 'Company', 'Power', 'Qty', 'Price'];
   dataSource = [
@@ -21,6 +24,15 @@ export class InventoryComponent {
   ];
 
 
-  constructor() { }
+  constructor(    private productService: ProductService,
+  ) { }
 
+  ngOnInit() {
+    this.getAddProduct();
+  }
+  getAddProduct() {
+    this.productService.viewAddProduct().subscribe((res)=> {
+      this.productList = res.data;
+    })
+  }
 }

@@ -52,7 +52,7 @@
                         <th>Representative</th>
                         <th>Contact No</th>
                         <th>Note</th>
-                        <th>Actions</th>
+                        <th style="min-width: 130px">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -62,7 +62,7 @@
                         <td>{{eachCompany.representative}}</td>
                         <td>{{eachCompany.contactNo}}</td>
                         <td>{{eachCompany.note}}</td>
-                        <td>
+                        <td style="min-width: 130px">
                           <button mat-icon-button color="primary" (click)="setView(i)">
                             <mat-icon>visibility</mat-icon>
                           </button>

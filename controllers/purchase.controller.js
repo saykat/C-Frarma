@@ -41,7 +41,7 @@ module.exports.save = (req, res, next)=>{
                 newPurchaseDetail.company = 1;
 
                 newPurchaseDetail.save();
-                medicineService.updateStock(newPurchaseDetail.product, newPurchaseDetail.qty);
+                medicineService.updateStock(newPurchaseDetail.product, (newPurchaseDetail.qty) * (-1));
                 purchase.purchaseDetails.push(newPurchaseDetail._id);
 
             });

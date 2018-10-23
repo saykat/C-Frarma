@@ -15,5 +15,6 @@ export class ProductModel{
   costPrice:string;
   company: CompanyModel;
   group: MedicineGroupModel;
+  stock: number;
   status: number;
 }

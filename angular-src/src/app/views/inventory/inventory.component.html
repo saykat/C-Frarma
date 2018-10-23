@@ -7,58 +7,31 @@
           <div class="row">
             <div class="col-md-12">
               <div class="row">
-                <div class="col-md-12">
-                  <mat-table #table [dataSource]="dataSource">
-
-                    <!-- Position Column -->
-                    <ng-container matColumnDef="No">
-                      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-                    </ng-container>
-
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="Name">
-                      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-                    </ng-container>
-
-                    <!-- Weight Column -->
-                    <ng-container matColumnDef="Group">
-                      <mat-header-cell *matHeaderCellDef> Group </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.group}} </mat-cell>
-                    </ng-container>
-
-                    <!-- Symbol Column -->
-                    <ng-container matColumnDef="Company">
-                      <mat-header-cell *matHeaderCellDef> Company </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.company}} </mat-cell>
-                    </ng-container>
-                    <!-- Symbol Column -->
-                    <ng-container matColumnDef="Power">
-                      <mat-header-cell *matHeaderCellDef> Power </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.power}} </mat-cell>
-                    </ng-container>
-
-                    <!-- Symbol Column -->
-                    <ng-container matColumnDef="Qty">
-                      <mat-header-cell *matHeaderCellDef> Qty </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.qty}} </mat-cell>
-                    </ng-container>
-
-                    <!-- Symbol Column -->
-                    <ng-container matColumnDef="Price">
-                      <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.sellingPrice}}</mat-cell>
-                    </ng-container>
-
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                  </mat-table>
-                  <mat-paginator #paginator
-                                 [pageSize]="10"
-                                 [pageSizeOptions]="[5, 10, 20]"
-                                 [showFirstLastButtons]="true">
-                  </mat-paginator>
+                <div class="col-md-12" >
+                  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" width="100%">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Medicine Name</th>
+                      <th>Group</th>
+                      <th>Company</th>
+                      <th> Power</th>
+                      <th>Price</th>
+                      <th>Stock</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let eachProduct of productList; let i=index">
+                      <td>{{i+1}}</td>
+                      <td>{{eachProduct.name}}</td>
+                      <td>{{eachProduct.group.name}}</td>
+                      <td>{{eachProduct.company.name}}</td>
+                      <td>{{eachProduct.power}}</td>
+                      <td>{{eachProduct.sellingPrice}}</td>
+                      <td>{{eachProduct.stock}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

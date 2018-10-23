@@ -21,7 +21,7 @@
                       <th>Discount</th>
                       <th>Total Amount</th>
                       <th>Date</th>
-                      <th>Actions</th>
+                      <th style="min-width: 70px">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,8 +31,8 @@
                       <td>{{item.saleDetails.length}}</td>
                       <td>{{item.discount}}</td>
                       <td>{{item.amount}}</td>
-                      <td>{{item.insertedTime}}</td>
-                      <td>
+                      <td>{{item.insertedTime | date}}</td>
+                      <td style="min-width: 70px">
                         <button mat-icon-button color="primary" (click)="setView(i)">
                           <mat-icon>visibility</mat-icon>
                         </button>
