@@ -104,7 +104,7 @@ module.exports.viewGrid = (req, res, next) => {
         length: length
     }
 
-    saleService.viewGrid(queryOption,  (err, data)=>{
+    purchaseService.viewGrid(queryOption,  (err, data)=>{
 
         if(err){
             res.json({success: false, data: null});

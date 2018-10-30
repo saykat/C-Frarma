@@ -49,7 +49,7 @@ module.exports.viewGrid = (queryOption, callback) => {
 
         query.exec((err, purchasess)=>{
             let data = {
-                purchases: purchases,
+                purchases: purchasess,
                 count: count
             }
             callback(err, data);

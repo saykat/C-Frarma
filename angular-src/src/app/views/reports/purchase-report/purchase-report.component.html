@@ -1,2 +1,158 @@
 
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-card class="example-card">
+        <mat-card-title><h4  class="card-title">Sales Report</h4></mat-card-title>
+
+        <mat-card-content [ngStyle]="{'display': details? 'none': 'block' }" >
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+
+                <div class="col-md-12" >
+
+                  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" width="100%">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Invoice No</th>
+                      <th>Total Item</th>
+                      <th>Discount</th>
+                      <th>Total Amount</th>
+                      <th>Date</th>
+                      <th style="min-width: 70px">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of salesList; let i=index">
+                      <td>{{i+1}}</td>
+                      <td>{{item.invoiceNo}}</td>
+                      <td>{{item.saleDetails.length}}</td>
+                      <td>{{item.discount}}</td>
+                      <td>{{item.amount}}</td>
+                      <td>{{item.insertedTime | date}}</td>
+                      <td style="min-width: 70px">
+                        <button mat-icon-button color="primary" (click)="setView(i)">
+                          <mat-icon>visibility</mat-icon>
+                        </button>
+                        <!--<button mat-icon-button color="primary" (click)="setEdit(i)">-->
+                        <!--<mat-icon>border_color</mat-icon>-->
+                        <!--</button>-->
+                        <button mat-icon-button color="accent"  (click)="setDelete(i)">
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-content  *ngIf="details == true">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row" style="margin-bottom: 20px">
+                <div class="col-md-12">
+                  <button mat-stroked-button color="accent" (click)="backToList()" class="pull-left">Back To List</button>
+                </div>
+              </div>
+              <div class="row">
+
+                <div class="col-md-6" >
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Invoice No" value="{{viewSale.invoiceNo}}" disabled style="color: black">
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Discount" value="{{viewSale.discount}}" disabled style="color: black">
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Inserted Time" value='{{viewSale.insertedTime | date:"MM/dd/yy"}}' disabled style="color: black">
+                  </mat-form-field>
+
+                </div>
+                <div class="col-md-6" >
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Amount" value="{{viewSale.amount}}" disabled style="color: black">
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Discount Percentage" value="{{viewSale.discountPer}}" disabled style="color: black">
+                  </mat-form-field>
+
+
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <table datatable class="row-border hover">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Medicine Name</th>
+                      <th>Group</th>
+                      <th>Brand</th>
+                      <th>Qty</th>
+                      <th>Discount</th>
+                      <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  *ngFor="let salesItem of viewSale.saleDetails; let i=index">
+                      <td>{{i+1}}</td>
+                      <td>{{salesItem.product.name}}</td>
+                      <td>{{salesItem.product.group.name}}</td>
+                      <td>{{salesItem.product.company.name}}</td>
+                      <td>{{salesItem.qty}}</td>
+                      <td>{{salesItem.discount}}</td>
+                      <td>{{salesItem.amount}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<ngx-smart-modal #deleteConfirmationModal identifier="deleteConfirmationModal">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Alert!</h2>
+      <p>Are you sure to delete the record? </p>
+    </div>
+  </div>
+  <button mat-raised-button color="accent" (click)="deleteRecord()" class="pull-left">Delete</button>
+  <button mat-stroked-button color="accent" (click)="deleteConfirmationModal.close()" class="pull-right">Close</button>
+</ngx-smart-modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
