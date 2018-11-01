@@ -40,7 +40,7 @@ export class NewPurchaseComponent {
   ngDoCheck(){
     let newTotal = 0;
     let newDiscount = 0;
-    this.cartService.salesItem.forEach((item)=>{
+    this.cartService.purchaseItem.forEach((item)=>{
       newTotal = newTotal + (item.sellingPrice * item.qty);
       newDiscount = newDiscount + (item.discount * item.qty);
     })
@@ -66,13 +66,13 @@ export class NewPurchaseComponent {
         salesItem.subtotal = salesItem.qty * salesItem.sellingPrice;
 
         let avoid = false;
-        this.cartService.salesItem.forEach((item)=>{
+        this.cartService.purchaseItem.forEach((item)=>{
           if(item._id == medicine._id){
             avoid = true;
           }
         })
         if(avoid == false){
-          this.cartService.salesItem.push(salesItem);
+          this.cartService.purchaseItem.push(salesItem);
         }
         // this.searchKey = '';
       }
@@ -130,7 +130,7 @@ export class NewPurchaseComponent {
   }
 
   updateQty( currentItemId, newQty){
-    this.cartService.salesItem.forEach((item)=>{
+    this.cartService.purchaseItem.forEach((item)=>{
       if(item._id == currentItemId){
         item.qty = newQty;
       }
@@ -138,7 +138,7 @@ export class NewPurchaseComponent {
   }
 
   updatePrice( currentItemId, newPrice){
-    this.cartService.salesItem.forEach((item)=>{
+    this.cartService.purchaseItem.forEach((item)=>{
       if(item._id == currentItemId){
 
         if(newPrice >= item.costPrice){
@@ -163,7 +163,7 @@ export class NewPurchaseComponent {
   }
 
   updatePriceOnFocusout( currentItemId, newPrice){
-    this.cartService.salesItem.forEach((item)=>{
+    this.cartService.purchaseItem.forEach((item)=>{
       if(item._id == currentItemId){
 
         if(newPrice < item.costPrice){
@@ -185,7 +185,7 @@ export class NewPurchaseComponent {
 
 
   updateDiscount( currentItemId, newPerDiscount ){
-    this.cartService.salesItem.forEach((item)=>{
+    this.cartService.purchaseItem.forEach((item)=>{
       if(item._id == currentItemId){
 
         if(newPerDiscount > 0){
@@ -205,7 +205,7 @@ export class NewPurchaseComponent {
 
 
   updateDiscountOnFocusout( currentItemId, newPerDiscount ){
-    this.cartService.salesItem.forEach((item)=>{
+    this.cartService.purchaseItem.forEach((item)=>{
       if(item._id == currentItemId){
 
         if( newPerDiscount <= 0 ){
@@ -221,9 +221,9 @@ export class NewPurchaseComponent {
 
   removeItem(currentItemId){
     let index = 0;
-    this.cartService.salesItem.forEach((item)=>{
+    this.cartService.purchaseItem.forEach((item)=>{
       if(item._id == currentItemId){
-        this.cartService.salesItem.splice(index, 1);
+        this.cartService.purchaseItem.splice(index, 1);
       }
       index++;
     })

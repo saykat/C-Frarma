@@ -1,14 +1,43 @@
 <div class="animated fadeIn">
   <div class="row">
-      <div class="col-md-12">
-        <canvas baseChart
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
+    <div class="col-md-12">
+      <mat-card class="example-card">
+        <mat-card-content>
+          <div class="animated fadeIn">
+            <div class="row">
+              <div class="col-md-12">
+                <canvas baseChart
+                        [datasets]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [options]="lineChartOptions"
+                        [legend]="lineChartLegend"
+                        [chartType]="lineChartType"
+                        [colors]="lineChartColors"
                 ></canvas>
 
-      </div>
-  </div><!--/.row-->
+              </div>
+            </div><!--/.row-->
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

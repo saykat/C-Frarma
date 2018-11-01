@@ -14,6 +14,7 @@ var companyController = require('../controllers/company.controller');
 var addProductController = require('../controllers/addProduct.controller');
 var saleController = require('../controllers/sale.controller');
 var purchaseController = require('../controllers/purchase.controller');
+var dashboardController = require('../controllers/dashboard.controller');
 
 
 const passport = require('passport');
@@ -71,6 +72,9 @@ router.post('/purchase/save', purchaseController.save);
 router.post('/purchase/modify', purchaseController.modify);
 router.get('/purchase/view', purchaseController.view);
 router.post('/purchase/view', purchaseController.viewGrid);
+
+
+router.post('/dashboard/area-chart-data', dashboardController.getAreaChartData);
 
 
 

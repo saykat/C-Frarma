@@ -25,7 +25,7 @@ module.exports.save = (req, res, next)=>{
             res.json({success: false, msg: 'failed to save '});
         }else{
 
-            req.body.salesItem.forEach((item)=>{
+            req.body.purchaseItem.forEach((item)=>{
 
                 let newPurchaseDetail = new purchaseDetail();
                 newPurchaseDetail.purchaseId = purchase._id;

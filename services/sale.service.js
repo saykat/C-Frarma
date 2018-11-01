@@ -20,7 +20,6 @@ module.exports.returnSale = (id) => {
 }
 
 
-
 module.exports.viewGrid = (queryOption, callback) => {
 
     var searchKeyPattern = new RegExp('.*'+queryOption.searchKey+'.*', "i");
@@ -55,5 +54,15 @@ module.exports.viewGrid = (queryOption, callback) => {
             callback(err, data);
         })
     });
+
+}
+
+module.exports.getAreaChartData = (qDate, callback)=>{
+    let currentDate = new Date(qDate);
+    let query = sale.count({
+        "insertedTime": {"$gte": new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()), "$lt": new Date(currentDate.getFullYear(), currentDate.getMonth(), (currentDate.getDate()+1))}
+    });
+
+    query.exec(callback);
 
 }

@@ -1,12 +1,11 @@
 import {Injectable} from "@angular/core";
-import {MedicineModel} from "../models/medicine.model";
-import {SalesItemModel} from "../models/SalesItem.model";
+import {PurchaseItemModel} from "../models/purchaseItem.model";
 
 @Injectable()
 export class PurchaseCartService{
 
   _id: string = null;
-  salesItem: SalesItemModel[] = [];
+  purchaseItem: PurchaseItemModel[] = [];
   total: number = 0;
   totalDiscount: number = 0;
   vat: number = 0;
@@ -16,7 +15,7 @@ export class PurchaseCartService{
 
   emptyCart(){
     this._id = null;
-    this.salesItem = [];
+    this.purchaseItem = [];
     this.total = 0;
     this.totalDiscount = 0;
     this.vat = 0;
