@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-12">
       <mat-card class="example-card">
-        <mat-card-title><h4  class="card-title">Sales Report</h4></mat-card-title>
+        <mat-card-title><h4  class="card-title">Purchase Report</h4></mat-card-title>
 
         <mat-card-content [ngStyle]="{'display': details? 'none': 'block' }" >
           <div class="row">
@@ -25,10 +25,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let item of salesList; let i=index">
+                    <tr *ngFor="let item of purchaseList; let i=index">
                       <td>{{i+1}}</td>
                       <td>{{item.invoiceNo}}</td>
-                      <td>{{item.saleDetails.length}}</td>
+                      <td>{{item.purchaseDetails.length}}</td>
                       <td>{{item.discount}}</td>
                       <td>{{item.amount}}</td>
                       <td>{{item.insertedTime | date}}</td>
@@ -67,26 +67,26 @@
                 <div class="col-md-6" >
 
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Invoice No" value="{{viewSale.invoiceNo}}" disabled style="color: black">
+                    <input matInput placeholder="Invoice No" value="{{viewPurchase.invoiceNo}}" disabled style="color: black">
                   </mat-form-field>
 
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Discount" value="{{viewSale.discount}}" disabled style="color: black">
+                    <input matInput placeholder="Discount" value="{{viewPurchase.discount}}" disabled style="color: black">
                   </mat-form-field>
 
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Inserted Time" value='{{viewSale.insertedTime | date:"MM/dd/yy"}}' disabled style="color: black">
+                    <input matInput placeholder="Inserted Time" value='{{viewPurchase.insertedTime | date:"MM/dd/yy"}}' disabled style="color: black">
                   </mat-form-field>
 
                 </div>
                 <div class="col-md-6" >
 
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Amount" value="{{viewSale.amount}}" disabled style="color: black">
+                    <input matInput placeholder="Amount" value="{{viewPurchase.amount}}" disabled style="color: black">
                   </mat-form-field>
 
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Discount Percentage" value="{{viewSale.discountPer}}" disabled style="color: black">
+                    <input matInput placeholder="Discount Percentage" value="{{viewPurchase.discountPer}}" disabled style="color: black">
                   </mat-form-field>
 
 
@@ -109,14 +109,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  *ngFor="let salesItem of viewSale.saleDetails; let i=index">
+                    <tr  *ngFor="let purchaseItem of viewPurchase.purchaseDetails; let i=index">
                       <td>{{i+1}}</td>
-                      <td>{{salesItem.product.name}}</td>
-                      <td>{{salesItem.product.group.name}}</td>
-                      <td>{{salesItem.product.company.name}}</td>
-                      <td>{{salesItem.qty}}</td>
-                      <td>{{salesItem.discount}}</td>
-                      <td>{{salesItem.amount}}</td>
+                      <td>{{purchaseItem.product.name}}</td>
+                      <td>{{purchaseItem.product.group.name}}</td>
+                      <td>{{purchaseItem.product.company.name}}</td>
+                      <td>{{purchaseItem.qty}}</td>
+                      <td>{{purchaseItem.discount}}</td>
+                      <td>{{purchaseItem.amount}}</td>
                     </tr>
                     </tbody>
                   </table>

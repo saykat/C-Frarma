@@ -10,6 +10,7 @@ import {ReportsRoutingModule} from "./reports-routing.module";
 import {SalesReportComponent} from "./sales-report/sales-report.component";
 import {PurchaseReportComponent} from "./purchase-report/purchase-report.component";
 import {SalesService} from "../../services/sales.service";
+import {PurchaseService} from "../../services/purchase.service";
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import {SalesService} from "../../services/sales.service";
     PurchaseReportComponent
   ],
   providers: [
-    SalesService
+    SalesService,
+    PurchaseService
   ]
 })
 export class ReportsModule { }

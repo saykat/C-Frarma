@@ -53,11 +53,11 @@ module.exports.save = (req, res, next)=>{
 
 module.exports.modify = (req, res, next) => {
 
-    saleService.returnSale(req.body._id);
-    req.body.saleDetails.forEach((item)=>{
-        medicineService.updateStock(item.product._id, (item.qty*(-1)));
+    purchaseService.returnPurchase(req.body._id);
+    req.body.purchaseDetails.forEach((item)=>{
+        medicineService.updateStock(item.product._id, (item.qty));
     });
-    res.json({success: true, notification: 'success',  msg: 'Sales Returned', data: null});
+    res.json({success: true, notification: 'success',  msg: 'Purchase Canceled', data: null});
 
 }
 module.exports.view = (req, res, next) => {
@@ -109,7 +109,7 @@ module.exports.viewGrid = (req, res, next) => {
         if(err){
             res.json({success: false, data: null});
         }else{
-            res.json({success: true, data: data.sales, recordsTotal: data.count, recordsFiltered: data.count});
+            res.json({success: true, data: data.purchases, recordsTotal: data.count, recordsFiltered: data.count});
         }
 
     })

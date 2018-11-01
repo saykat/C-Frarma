@@ -9,6 +9,8 @@ import {HttpClient} from "@angular/common/http";
 import {NgxSmartModalService} from "ngx-smart-modal";
 import {SaleModel} from "../../../models/saleModel";
 import {SalesService} from "../../../services/sales.service";
+import {PurchaseModel} from "../../../models/purchaseModel";
+import {PurchaseService} from "../../../services/purchase.service";
 
 @Component({
   templateUrl: 'purchase-report.component.html'
@@ -19,14 +21,14 @@ export class PurchaseReportComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
 
-  salesList: SaleModel[] = [];
-  viewSale: SaleModel = new SaleModel();
+  purchaseList: PurchaseModel[] = [];
+  viewPurchase: PurchaseModel = new PurchaseModel();
   details: boolean = false;
   constructor(
     private notificationService: NotificationsService,
     private http: HttpClient,
     public ngxSmartModalService: NgxSmartModalService,
-    private salesService: SalesService,
+    private purchaseService: PurchaseService,
   ){
 
   }
@@ -46,7 +48,7 @@ export class PurchaseReportComponent implements OnInit {
             'http://localhost:8080/api/purchase/view?key=',
             dataTablesParameters, {}
           ).subscribe(resp => {
-          that.salesList = resp.data;
+          that.purchaseList = resp.data;
 
           callback({
             recordsTotal: resp.recordsTotal,
@@ -80,29 +82,29 @@ export class PurchaseReportComponent implements OnInit {
 
 
   setView(index){
-    this.viewSale = this.salesList[index];
+    this.viewPurchase = this.purchaseList[index];
     this.details = true;
   }
 
   backToList(){
-    this.viewSale = new SaleModel();
+    this.viewPurchase = new PurchaseModel();
     this.details = false;
 
   }
 
   setDelete(index){
-    this.viewSale = this.salesList[index];
+    this.viewPurchase = this.purchaseList[index];
     this.ngxSmartModalService.getModal('deleteConfirmationModal').open();
   }
 
 
   deleteRecord() {
-    this.viewSale.status = 0;
+    this.viewPurchase.status = 0;
 
-    this.salesService.returnSale(this.viewSale).subscribe((res) => {
+    this.purchaseService.returnPurchase(this.viewPurchase).subscribe((res) => {
       if (res.success == true) {
         this.rerender();
-        this.viewSale = new SaleModel();
+        this.viewPurchase = new PurchaseModel();
 
         this.ngxSmartModalService.getModal('deleteConfirmationModal').close();
         this.notificationService.success('Success', 'A record successfully deleted');
