@@ -57,3 +57,43 @@ module.exports.viewGrid = (queryOption, callback) => {
     });
 
 }
+
+
+
+module.exports.getTotalAmount = (qDate, callback)=>{
+    let currentDate = new Date(qDate);
+
+    let query = purchase.aggregate(
+        [
+            { $match:{
+                "insertedTime": {"$gte": new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()), "$lt": new Date(currentDate.getFullYear(), currentDate.getMonth(), (currentDate.getDate()+1))}
+            } },
+            { "$group": {
+                _id: "",
+                "amount": { $sum: "$amount" }
+            }}
+        ]
+    );
+
+    query.exec(callback);
+
+}
+
+module.exports.getTotalCount= (qDate, callback)=>{
+    let currentDate = new Date(qDate);
+
+    let query = purchase.aggregate(
+        [
+            { $match:{
+                "insertedTime": {"$gte": new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()), "$lt": new Date(currentDate.getFullYear(), currentDate.getMonth(), (currentDate.getDate()+1))}
+            } },
+            { "$group": {
+                _id: "",
+                "count": { $sum: 1 }
+            }}
+        ]
+    );
+
+    query.exec(callback);
+
+}

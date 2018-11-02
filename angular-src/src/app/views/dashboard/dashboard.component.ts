@@ -10,6 +10,11 @@ import {DashboardService} from "../../services/dashboard.service";
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
+  salesAmount: number;
+  salesItems: number;
+  purchaseAmount: number;
+  purchaseItems: number;
+
   firstDayOfWeek: Date = this.getMonday(new Date());
 
   public lineChartData:Array<any> = [
@@ -50,11 +55,12 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    setTimeout(()=>{
-      this.notificationService.success('Success', 'Succesfully Loged In')
-    },1000)
     console.log(this.artService)
     this.updateChart();
+    this.updateTotalSales();
+    this.updateTotalItem();
+    this.updateTotalPurchase();
+    this.updateTotalItemPurchase();
   }
 
   getMonday(d) {
@@ -93,6 +99,34 @@ export class DashboardComponent implements OnInit {
       console.log(this.lineChartData)
     })
 
+  }
+
+  updateTotalSales(){
+    let date = new Date();
+    this.dashboardService.getSalesTotal(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+(date.getDate())).subscribe((res)=>{
+      this.salesAmount = res.data;
+    })
+  }
+
+  updateTotalItem(){
+    let date = new Date();
+    this.dashboardService.getSalesItems(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+(date.getDate())).subscribe((res)=>{
+      this.salesItems = res.data;
+    })
+  }
+
+  updateTotalPurchase(){
+    let date = new Date();
+    this.dashboardService.getPurchaseTotal(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+(date.getDate())).subscribe((res)=>{
+      this.purchaseAmount = res.data;
+    })
+  }
+
+  updateTotalItemPurchase(){
+    let date = new Date();
+    this.dashboardService.getPurchaseItems(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+(date.getDate())).subscribe((res)=>{
+      this.purchaseItems = res.data;
+    })
   }
 
 }

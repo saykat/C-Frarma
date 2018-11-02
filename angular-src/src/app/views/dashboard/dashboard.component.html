@@ -5,6 +5,44 @@
         <mat-card-content>
           <div class="animated fadeIn">
             <div class="row">
+              <div class="col-6 col-lg-3">
+                <div class="card">
+                  <div class="card-body p-3 clearfix">
+                    <i class="fa fa-money bg-primary p-3 font-2xl mr-3 float-left"></i>
+                    <div class="h5 text-primary mb-0 mt-2">${{salesAmount}}</div>
+                    <div class="text-muted text-uppercase font-weight-bold font-xs">Sales Amount</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-lg-3">
+                <div class="card">
+                  <div class="card-body p-3 clearfix">
+                    <i class="fa fa-cube bg-primary p-3 font-2xl mr-3 float-left"></i>
+                    <div class="h5 text-primary mb-0 mt-2">{{salesItems}}</div>
+                    <div class="text-muted text-uppercase font-weight-bold font-xs">Sales Items</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-lg-3">
+                <div class="card">
+                  <div class="card-body p-3 clearfix">
+                    <i class="fa fa-money bg-primary p-3 font-2xl mr-3 float-left"></i>
+                    <div class="h5 text-primary mb-0 mt-2">${{purchaseAmount}}</div>
+                    <div class="text-muted text-uppercase font-weight-bold font-xs">Purchase Amount</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-lg-3">
+                <div class="card">
+                  <div class="card-body p-3 clearfix">
+                    <i class="fa fa-cube bg-primary p-3 font-2xl mr-3 float-left"></i>
+                    <div class="h5 text-primary mb-0 mt-2">{{purchaseItems}}</div>
+                    <div class="text-muted text-uppercase font-weight-bold font-xs">Purchase Items</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-md-12">
                 <canvas baseChart
                         [datasets]="lineChartData"
@@ -13,7 +51,7 @@
                         [legend]="lineChartLegend"
                         [chartType]="lineChartType"
                         [colors]="lineChartColors"
-                ></canvas>
+                        style="max-height: 400px;"></canvas>
 
               </div>
             </div><!--/.row-->

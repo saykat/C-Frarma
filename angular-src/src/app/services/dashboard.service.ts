@@ -18,6 +18,26 @@ export class DashboardService {
       .map(res => res.json());
   }
 
+  getSalesTotal(todayDate){
+    return this.http.get('http://localhost:8080/api/dashboard/sales/totalValue?todayDate='+todayDate)
+      .map(res => res.json());
+  }
+
+  getSalesItems(todayDate){
+    return this.http.get('http://localhost:8080/api/dashboard/sales/totalItem?todayDate='+todayDate)
+      .map(res => res.json());
+  }
+
+  getPurchaseTotal(todayDate){
+    return this.http.get('http://localhost:8080/api/dashboard/purchase/totalValue?todayDate='+todayDate)
+      .map(res => res.json());
+  }
+
+  getPurchaseItems(todayDate){
+    return this.http.get('http://localhost:8080/api/dashboard/purchase/totalItem?todayDate='+todayDate)
+      .map(res => res.json());
+  }
+
 
 
 

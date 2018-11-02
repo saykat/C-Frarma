@@ -76,6 +76,11 @@ router.post('/purchase/view', purchaseController.viewGrid);
 
 router.post('/dashboard/area-chart-data', dashboardController.getAreaChartData);
 
+router.get('/dashboard/sales/totalValue', dashboardController.getTotalSalesValue);
+router.get('/dashboard/sales/totalItem', dashboardController.getTotalSalesItems);
+router.get('/dashboard/purchase/totalValue', dashboardController.getTotalPurchaseValue);
+router.get('/dashboard/purchase/totalItem', dashboardController.getTotalPurchaseItem);
+
 
 
 module.exports = router;
