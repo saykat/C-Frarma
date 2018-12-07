@@ -31,7 +31,7 @@ const  medecineSchema = mongoose.Schema({
         type: Number,
     },
     power: {
-        type: Number,
+        type: String,
     },
     insertedTime:{
         type: Date,
